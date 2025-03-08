@@ -22,7 +22,7 @@ public static partial class Fake
                 new FileRevisionApproved(
                     documentId,
                     f.System.FileName(fileExt),
-                    $"{Guid.NewGuid()}.{fileExt}",
+                    $"{f.Random.Guid()}.{fileExt}",
                     DateTimeOffset.Now,
                     f.Name.FullName()))
             .Generate();

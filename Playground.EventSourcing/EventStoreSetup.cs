@@ -37,3 +37,5 @@ public static class EventStoreSetup
         return connectionString;
     }
 }
+
+internal abstract class Program;
