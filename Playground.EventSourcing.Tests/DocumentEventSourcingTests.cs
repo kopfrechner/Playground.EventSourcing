@@ -1,5 +1,7 @@
 ﻿using Bogus;
+using Marten;
 using Playground.EventSourcing.Aggregates;
+using Playground.EventSourcing.Aggregates.Projections;
 using Shouldly;
 
 namespace Playground.EventSourcing.Tests;
@@ -12,7 +14,7 @@ public class DocumentEventSourcingTests : TestsBase
         // Arrange
         await using var session = NewSession();
         var documentId = Guid.NewGuid();
-        
+
         Randomizer.Seed = new Random(420);
         session.Events.StartStream<Document>(documentId,
             FakeEvent.DocumentAdded(documentId),
@@ -31,14 +33,14 @@ public class DocumentEventSourcingTests : TestsBase
         // Assert
         await Verify(documentAggregate);
     }
-    
+
     [Fact]
     public async Task GivenANewCandidateFileRevision_WhenProjectionIsAsked_ThenItShouldShowTheCandidate()
     {
         // Arrange
         await using var session = NewSession();
         var documentId = Guid.NewGuid();
-        
+
         Randomizer.Seed = new Random(420);
         session.Events.StartStream<Document>(documentId,
             FakeEvent.DocumentAdded(documentId),
@@ -52,18 +54,18 @@ public class DocumentEventSourcingTests : TestsBase
 
         // Act
         var candidateFileRevision = await session.LoadAsync<CandidateFileRevisionState>(documentId);
-        
+
         // Assert
         await Verify(candidateFileRevision);
     }
-    
+
     [Fact]
     public async Task GivenADeclinedFileRevision_WhenProjectionIsAsked_ThenItShouldReturnNull()
     {
         // Arrange
         await using var session = NewSession();
         var documentId = Guid.NewGuid();
-        
+
         Randomizer.Seed = new Random(420);
         session.Events.StartStream<Document>(documentId,
             FakeEvent.DocumentAdded(documentId),
@@ -74,8 +76,36 @@ public class DocumentEventSourcingTests : TestsBase
 
         // Act
         var candidateFileRevision = await session.LoadAsync<CandidateFileRevisionState>(documentId);
-        
+
         // Assert
         candidateFileRevision.ShouldBeNull();
+    }
+
+    [Fact]
+    public async Task GivenAMultipleEventsOverDocuments_WhenQueryingHistory_ThenItShouldReturnAllEvents()
+    {
+        await using var session = NewSession();
+
+        var documentId1 = Guid.NewGuid();
+        session.Events.StartStream(documentId1,
+            FakeEvent.DocumentAdded(documentId1),
+            FakeEvent.CandidateFileRevisionUploaded(documentId1),
+            FakeEvent.CandidateFileRevisionApproved(documentId1)
+        );
+
+        var documentId2 = Guid.NewGuid();
+        session.Events.StartStream(documentId2,
+            FakeEvent.DocumentAdded(documentId2),
+            FakeEvent.CandidateFileRevisionUploaded(documentId2),
+            FakeEvent.CandidateFileRevisionDeclined(documentId2)
+        );
+
+        await session.SaveChangesAsync();
+        
+        var history = await session.Query<CandidateFileRevisionHistoryEntry>()
+            .OrderBy(x => x.EventTime)
+            .ToListAsync();
+
+        await Verify(history);
     }
 }

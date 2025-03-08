@@ -1,6 +1,6 @@
 using Marten.Events.Aggregation;
 
-namespace Playground.EventSourcing.Aggregates;
+namespace Playground.EventSourcing.Aggregates.Projections;
 
 public record CandidateFileRevisionState(
     Guid Id,

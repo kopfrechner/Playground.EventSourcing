@@ -1,3 +1,5 @@
+using Playground.EventSourcing.Aggregates.Common;
+
 namespace Playground.EventSourcing.Aggregates;
 
 public record DocumentAdded(Guid DocumentId, string Alias, DateTimeOffset CreatedAt, string CreatedBy) : IEvent;

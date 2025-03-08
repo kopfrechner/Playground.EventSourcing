@@ -2,19 +2,31 @@ using Marten;
 
 namespace Playground.EventSourcing.Tests;
 
-public abstract class TestsBase : IDisposable
+[Collection(nameof(DocumentEventSourcingTests))]
+public abstract class TestsBase : IDisposable, IAsyncLifetime
 {
     private readonly DocumentStore _store;
 
     protected TestsBase()
     {
-        // Configure Marten
         var connectionString = EventStoreSetup.ConnectionStringOrThrow();
         _store = EventStoreSetup.SetupDocumentStore(connectionString);
     }
     
     protected IDocumentSession NewSession() => _store.LightweightSession();
 
+    public async Task InitializeAsync()
+    {
+        await _store.Advanced.Clean.CompletelyRemoveAllAsync();
+        await _store.Storage.ApplyAllConfiguredChangesToDatabaseAsync();
+    }
+
+    public Task DisposeAsync()
+    {
+        _store.Dispose();
+        return Task.CompletedTask;
+    }
+    
     public void Dispose()
     {
         _store.Dispose();

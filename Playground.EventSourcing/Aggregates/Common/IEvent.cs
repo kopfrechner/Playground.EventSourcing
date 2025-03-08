@@ -1,4 +1,4 @@
-namespace Playground.EventSourcing.Aggregates;
+namespace Playground.EventSourcing.Aggregates.Common;
 
 /// <summary>
 /// Marker Interface
