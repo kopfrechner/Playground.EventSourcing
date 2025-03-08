@@ -1,54 +1,54 @@
 ﻿{
-  Name: Rustic Plastic Bacon,
+  Name: Rustic Steel Pants,
   CreatedAt: DateTimeOffset_1,
-  CreatedBy: Astrid Wehner,
+  CreatedBy: Connor Simonis,
   OngoingApprovalProcess: false,
   IsLocked: true,
-  LockChangedReason: Way Investment Account Berkshire deposit impactful Illinois optimize Refined Frozen Table challenge Inlet Pike Wooden quantify Iceland cross-media Automotive engineer Future Internal Idaho,
+  LockChangedReason: XML bluetooth Rubber Berkshire East Caribbean Dollar compressing navigate methodologies Isle Fresh bandwidth e-business monetize Fantastic Concrete Ball Global fuchsia Berkshire hybrid Plastic Solomon Islands Dollar,
   LockedChangedAt: DateTimeOffset_2,
   CurrentVersion: 1,
   CurrentProductRevision: {
-    Description: New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016,
-    InternalDescription: The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive,
+    Description: Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support,
+    InternalDescription: The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality,
     Revision: 1,
-    ChangeLog: Oklahoma Generic Rubber Shoes array Executive Gorgeous Frozen Mouse Cotton alliance one-to-one hierarchy synthesize Incredible Fresh Pizza Solomon Islands deposit Investment Account Rapids Internal pricing structure killer Applications morph,
+    ChangeLog: analyzing Hills Awesome Wooden Soap Union Savings Account quantifying Jewelery & Music Checking Account Multi-lateral Fantastic Concrete Table Producer hacking Enhanced Concrete Unbranded Plastic Ball Refined transmit solid state Lithuanian Litas facilitate,
     ApprovedAt: DateTimeOffset_3,
-    ApprovedBy: Anibal Crona
+    ApprovedBy: Elisabeth Stroman
   },
   Revisions: [
     {
-      Description: New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016,
-      InternalDescription: The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive,
+      Description: Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support,
+      InternalDescription: The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality,
       Revision: 1,
-      ChangeLog: Oklahoma Generic Rubber Shoes array Executive Gorgeous Frozen Mouse Cotton alliance one-to-one hierarchy synthesize Incredible Fresh Pizza Solomon Islands deposit Investment Account Rapids Internal pricing structure killer Applications morph,
+      ChangeLog: analyzing Hills Awesome Wooden Soap Union Savings Account quantifying Jewelery & Music Checking Account Multi-lateral Fantastic Concrete Table Producer hacking Enhanced Concrete Unbranded Plastic Ball Refined transmit solid state Lithuanian Litas facilitate,
       ApprovedAt: DateTimeOffset_3,
-      ApprovedBy: Anibal Crona
+      ApprovedBy: Elisabeth Stroman
     }
   ],
   Id: Guid_1,
   UncommittedEvents: [
     {
       ProductId: Guid_1,
-      Description: The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design,
-      InternalDescription: Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals,
-      ChangeLog: proactive Metrics back up Customer 24/7 Incredible Representative Personal Loan Account technologies 1080p azure Handcrafted Steel Shirt back-end Checking Account Enhanced Soft International Bedfordshire best-of-breed AGP,
-      UploadedAt: DateTimeOffset_4,
-      UploadedBy: Amaya Bernier
-    },
-    {
-      ProductId: Guid_1,
-      Description: New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016,
+      Description: Carbonite web goalkeeper gloves are ergonomically designed to give easy fit,
       InternalDescription: The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive,
-      ChangeLog: Oklahoma Generic Rubber Shoes array Executive Gorgeous Frozen Mouse Cotton alliance one-to-one hierarchy synthesize Incredible Fresh Pizza Solomon Islands deposit Investment Account Rapids Internal pricing structure killer Applications morph,
-      ApprovalComment: incubate SCSI Chief Massachusetts Baby & Books Forward revolutionary Plastic program Awesome Metal Car mesh deploy mindshare syndicate Parks out-of-the-box Solutions Chile Zloty Versatile,
-      ApprovedAt: DateTimeOffset_3,
-      ApprovedBy: Anibal Crona
+      ChangeLog: Unbranded Wooden Fish facilitate Strategist best-of-breed paradigms Web JBOD program deposit Customer 24/7 Intelligent French Guiana Representative Money Market Account View technologies cross-platform deposit Intelligent Soft Mouse,
+      UploadedAt: DateTimeOffset_4,
+      UploadedBy: Adolphus Stiedemann
     },
     {
       ProductId: Guid_1,
-      LockReason: Way Investment Account Berkshire deposit impactful Illinois optimize Refined Frozen Table challenge Inlet Pike Wooden quantify Iceland cross-media Automotive engineer Future Internal Idaho,
+      Description: Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support,
+      InternalDescription: The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality,
+      ChangeLog: analyzing Hills Awesome Wooden Soap Union Savings Account quantifying Jewelery & Music Checking Account Multi-lateral Fantastic Concrete Table Producer hacking Enhanced Concrete Unbranded Plastic Ball Refined transmit solid state Lithuanian Litas facilitate,
+      ApprovalComment: Incredible Cotton Salad Balanced Licensed Fresh Mouse Handmade Rubber Table connect withdrawal Generic Metal Computer Awesome Steel Fish Inverse withdrawal Swedish Krona Generic Rubber Shoes array Executive Gorgeous Frozen Mouse Cotton forecast Incredible Concrete Gloves Springs protocol,
+      ApprovedAt: DateTimeOffset_3,
+      ApprovedBy: Elisabeth Stroman
+    },
+    {
+      ProductId: Guid_1,
+      LockReason: XML bluetooth Rubber Berkshire East Caribbean Dollar compressing navigate methodologies Isle Fresh bandwidth e-business monetize Fantastic Concrete Ball Global fuchsia Berkshire hybrid Plastic Solomon Islands Dollar,
       LockedAt: DateTimeOffset_2,
-      LockedBy: Kendra Durgan
+      LockedBy: Mario Hudson
     }
   ]
 }
