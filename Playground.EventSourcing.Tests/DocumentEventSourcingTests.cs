@@ -15,7 +15,6 @@ public class DocumentEventSourcingTests : TestsBase
         await using var session = NewSession();
         var documentId = Guid.NewGuid();
 
-        Randomizer.Seed = new Random(420);
         session.Events.StartStream<Document>(documentId,
             FakeEvent.DocumentAdded(documentId),
             FakeEvent.CandidateFileRevisionUploaded(documentId),
@@ -41,7 +40,6 @@ public class DocumentEventSourcingTests : TestsBase
         await using var session = NewSession();
         var documentId = Guid.NewGuid();
 
-        Randomizer.Seed = new Random(420);
         session.Events.StartStream<Document>(documentId,
             FakeEvent.DocumentAdded(documentId),
             FakeEvent.CandidateFileRevisionUploaded(documentId),
@@ -65,8 +63,7 @@ public class DocumentEventSourcingTests : TestsBase
         // Arrange
         await using var session = NewSession();
         var documentId = Guid.NewGuid();
-
-        Randomizer.Seed = new Random(420);
+        
         session.Events.StartStream<Document>(documentId,
             FakeEvent.DocumentAdded(documentId),
             FakeEvent.CandidateFileRevisionUploaded(documentId),

@@ -35,27 +35,35 @@ public sealed record Document(
         OngoingApprovalProcess: false,
         Revisions: []);
 
-    public static Document Apply(CandidateFileRevisionUploaded @event, Document document)
+    public Document ApplyEvent(IEvent @event) => @event switch
     {
-        if (document.OngoingApprovalProcess)
+        CandidateFileRevisionUploaded uploaded => Apply(uploaded),
+        CandidateFileRevisionApproved approved => Apply(approved),
+        CandidateFileRevisionDeclined declined => Apply(declined),
+        _ => throw new InvalidOperationException($"Unsupported event type: {@event.GetType().Name}")
+    };
+    
+    private Document Apply(CandidateFileRevisionUploaded @event)
+    {
+        if (OngoingApprovalProcess)
         {
             throw new InvalidOperationException();
         }
         
-        return document with
+        return this with
         {
             OngoingApprovalProcess = true
         };
     }
     
-    public static Document Apply(CandidateFileRevisionApproved @event, Document document)
+    private Document Apply(CandidateFileRevisionApproved @event)
     {
-        if (!document.OngoingApprovalProcess)
+        if (!OngoingApprovalProcess)
         {
             throw new InvalidOperationException("To add a file revision, there must be an ongoing approval process.");
         }
         
-        var nextVersion = document.CurrentVersion + 1;
+        var nextVersion = CurrentVersion + 1;
         var newFileRevision = new FileRevision(
             @event.FileName,
             @event.InternalUniqueFileName,
@@ -63,23 +71,23 @@ public sealed record Document(
             @event.ApprovedAt,
             @event.ApprovedBy);
 
-        return document with
+        return this with
         {
             OngoingApprovalProcess = false,
             CurrentVersion = nextVersion,
             CurrentFileRevision = newFileRevision,
-            Revisions = [.. document.Revisions, newFileRevision]
+            Revisions = [.. Revisions, newFileRevision]
         };
     }
     
-    public static Document Apply(CandidateFileRevisionDeclined @event, Document document)
+    private Document Apply(CandidateFileRevisionDeclined @event)
     {
-        if (!document.OngoingApprovalProcess)
+        if (!OngoingApprovalProcess)
         {
             throw new InvalidOperationException();
         }
         
-        return document with
+        return this with
         {
             OngoingApprovalProcess = false
         };

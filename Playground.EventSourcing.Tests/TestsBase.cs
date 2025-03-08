@@ -1,3 +1,4 @@
+using Bogus;
 using Marten;
 
 namespace Playground.EventSourcing.Tests;
@@ -11,6 +12,8 @@ public abstract class TestsBase : IDisposable, IAsyncLifetime
     {
         var connectionString = EventStoreSetup.ConnectionStringOrThrow();
         _store = EventStoreSetup.SetupDocumentStore(connectionString);
+        
+        Randomizer.Seed = new Random(420);
     }
     
     protected IDocumentSession NewSession() => _store.LightweightSession();
