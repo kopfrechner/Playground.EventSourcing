@@ -1,12 +1,12 @@
-﻿using Bogus;
-using Marten;
+﻿using Marten;
 using Playground.EventSourcing.Aggregates;
 using Playground.EventSourcing.Aggregates.Projections;
+using Playground.EventSourcing.Tests.Common;
 using Shouldly;
 
 namespace Playground.EventSourcing.Tests;
 
-public class DocumentEventSourcingTests : TestsBase
+public class DocumentEventSourcingTests(PostgresTestContainerFixture postgresFixture) : TestsBase(postgresFixture)
 {
     [Fact]
     public async Task GivenSomeDocumentEvents_WhenTheAggregateIsBuilt_ThenItShouldBeCorrect()
