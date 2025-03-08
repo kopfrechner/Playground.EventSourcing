@@ -8,7 +8,7 @@ public sealed record FileRevision(
     string FileName,
     string InternalUniqueFileName,
     int Revision,
-    DateTimeOffset ApprovedAt, 
+    DateTimeOffset ApprovedAt,
     string ApprovedBy
 );
 
@@ -17,7 +17,7 @@ public sealed record Document(
     string Name,
     DateTimeOffset CreatedAt,
     string CreatedBy,
-    int Version,
+    int CurrentVersion,
     FileRevision? CurrentFileRevision,
     IReadOnlyList<FileRevision> Revisions)
 {
@@ -30,7 +30,7 @@ public sealed record Document(
 
     public static Document Apply(FileRevisionApproved @event, Document document)
     {
-        var nextVersion = document.Version + 1; 
+        var nextVersion = document.CurrentVersion + 1;
         var newFileRevision = new FileRevision(
             @event.FileName,
             @event.InternalUniqueFileName,
@@ -40,7 +40,7 @@ public sealed record Document(
 
         return document with
         {
-            Version = nextVersion,
+            CurrentVersion = nextVersion,
             CurrentFileRevision = newFileRevision,
             Revisions = [.. document.Revisions, newFileRevision]
         };

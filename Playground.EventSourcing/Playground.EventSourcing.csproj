@@ -9,6 +9,7 @@
   </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Bogus" Version="35.6.2" />
       <PackageReference Include="Marten" Version="7.38.1" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.2" />
       <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.2" />

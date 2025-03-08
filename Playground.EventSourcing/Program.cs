@@ -1,4 +1,5 @@
-﻿using Marten;
+﻿using Bogus;
+using Marten;
 using Playground.EventSourcing;
 using Playground.EventSourcing.Aggregates;
 
@@ -14,23 +15,30 @@ await DocumentPlayground(session);
 
 async Task DocumentPlayground(IDocumentSession documentSession)
 {
-    var documentId = Guid.NewGuid();
-    documentSession.Events.StartStream<Document>(documentId,
-        new DocumentAdded(documentId, "Product Name", DateTimeOffset.Now, "Norbert Normalo"),
-        new FileRevisionApproved(documentId, "ProductDescription.pdf", $"{Guid.NewGuid()}.pdf", DateTimeOffset.Now, "Hans Approver"),
-        new FileRevisionApproved(documentId, "ProductDescription_vnext.pdf", $"{Guid.NewGuid()}.pdf", DateTimeOffset.Now, "Claudia Approver"),
-        new FileRevisionApproved(documentId, "ProductDescription_v3.pdf", $"{Guid.NewGuid()}.pdf", DateTimeOffset.Now, "Werner Approver")
+    var documentId1 = Guid.NewGuid();
+    
+    Randomizer.Seed = new Random(420);
+    
+    documentSession.Events.StartStream<Document>(documentId1,
+        Fake.DocumentAdded(documentId1),
+        Fake.FileRevisionApproved(documentId1),
+        Fake.FileRevisionApproved(documentId1),
+        Fake.FileRevisionApproved(documentId1)
+    );
+    
+    var documentId2 = Guid.NewGuid();
+    documentSession.Events.StartStream<Document>(documentId2,
+        Fake.DocumentAdded(documentId2),
+        Fake.FileRevisionApproved(documentId2),
+        Fake.FileRevisionApproved(documentId2)
     );
     await documentSession.SaveChangesAsync();
     
-    var documentV1 = await documentSession.Events.AggregateStreamAsync<Document>(documentId);
+    var documentV1 = await documentSession.Events.AggregateStreamAsync<Document>(documentId1);
     Console.WriteLine(documentV1.ToPrettyJson());
-
-    for (var i = 0; i < 4; i++)
-    {
-        var documentVx = await documentSession.Events.AggregateStreamAsync<Document>(documentId, i);
-        Console.WriteLine(documentVx.ToPrettyJson());
-    }
+    
+    var documentV2 = await documentSession.Events.AggregateStreamAsync<Document>(documentId2);
+    Console.WriteLine(documentV2.ToPrettyJson());
 }
 
 async Task OrderPlayGround(IDocumentSession documentSession)
