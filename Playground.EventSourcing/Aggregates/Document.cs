@@ -1,4 +1,3 @@
-using Marten.Events;
 using Playground.EventSourcing.Aggregates.Common;
 
 namespace Playground.EventSourcing.Aggregates;
@@ -7,9 +6,8 @@ public record DocumentAdded(Guid DocumentId, string Alias, DateTimeOffset Create
 public record CandidateFileRevisionUploaded(Guid DocumentId, string FileName, string InternalUniqueFileName, string ChangeLog, DateTimeOffset UploadedAt, string UploadedBy) : IDomainEvent;
 public record CandidateFileRevisionApproved(Guid DocumentId, string FileName, string InternalUniqueFileName, string ChangeLog, string ApprovalComment, DateTimeOffset ApprovedAt, string ApprovedBy) : IDomainEvent;
 public record CandidateFileRevisionDeclined(Guid DocumentId, string DeclinedComment, DateTimeOffset DeclinedAt, string DeclinedBy) : IDomainEvent;
-
-//public record DocumentLocked(Guid DocumentId, DateTimeOffset DeclinedAt, string DeclinedBy) : IDomainEvent;
-//public record DocumentUnlocked(Guid DocumentId, DateTimeOffset DeclinedAt, string DeclinedBy) : IDomainEvent;
+public record DocumentLocked(Guid DocumentId, string LockReason, DateTimeOffset LockedAt, string LockedBy) : IDomainEvent;
+public record DocumentUnlocked(Guid DocumentId, string UnlockReason, DateTimeOffset UnlockedAt, string UnlockedBy) : IDomainEvent;
 
 public sealed record FileRevision(
     string FileName,
@@ -26,6 +24,9 @@ public sealed record Document(
     DateTimeOffset CreatedAt,
     string CreatedBy,
     bool OngoingApprovalProcess,
+    bool IsLocked,
+    string? LockChangedReason,
+    DateTimeOffset? LockedChangedAt,
     int CurrentVersion,
     FileRevision? CurrentFileRevision,
     IReadOnlyList<FileRevision> Revisions) : AggregateBase<Document>(Id)
@@ -35,6 +36,9 @@ public sealed record Document(
         added.Alias,
         added.CreatedAt,
         added.CreatedBy,
+        IsLocked: false,
+        LockChangedReason: null,
+        LockedChangedAt: null,
         CurrentVersion: 0,
         CurrentFileRevision: null,
         OngoingApprovalProcess: false,
@@ -45,8 +49,10 @@ public sealed record Document(
         CandidateFileRevisionUploaded uploaded => Apply(uploaded),
         CandidateFileRevisionApproved approved => Apply(approved),
         CandidateFileRevisionDeclined declined => Apply(declined),
+        DocumentLocked locked => Apply(locked),
+        DocumentUnlocked unlocked => Apply(unlocked),
         _ => throw new InvalidOperationException($"Unsupported event type: {@event.GetType().Name}")
-    }; 
+    };
     
     private Document Apply(CandidateFileRevisionUploaded _)
     {
@@ -96,6 +102,26 @@ public sealed record Document(
         return this with
         {
             OngoingApprovalProcess = false
+        };
+    }
+    
+    private Document Apply(DocumentLocked locked)
+    {
+        return this with
+        {
+            IsLocked = true,
+            LockChangedReason = locked.LockReason,
+            LockedChangedAt = locked.LockedAt
+        };
+    }
+    
+    private Document Apply(DocumentUnlocked unlocked)
+    {
+        return this with
+        {
+            IsLocked = false,
+            LockChangedReason = unlocked.UnlockReason,
+            LockedChangedAt = unlocked.UnlockedAt
         };
     }
 }
