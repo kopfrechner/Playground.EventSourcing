@@ -5,33 +5,37 @@
   OngoingApprovalProcess: false,
   CurrentVersion: 3,
   CurrentFileRevision: {
-    FileName: swedish_krona.nzb,
-    InternalUniqueFileName: 3fe2459b-dbd4-ecc1-3b01-4d6ebbb6b9f1.nzb,
+    FileName: quality_functionality_back_end.fly,
+    InternalUniqueFileName: 70b886a9-a6bc-3275-c789-840bb6623865.fly,
     Revision: 3,
+    ChangeLog: The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design,
     ApprovedAt: DateTimeOffset_2,
-    ApprovedBy: Alison Harvey
+    ApprovedBy: Linwood Kunze
   },
   Revisions: [
     {
-      FileName: money_market_account_view_technologies.uvh,
-      InternalUniqueFileName: 1a0ebce0-aaa6-17db-8207-5bba5a87c9f3.uvh,
+      FileName: global_markets.uu,
+      InternalUniqueFileName: 0ebce08e-a61a-dbaa-1782-075bba5a87c9.uu,
       Revision: 1,
+      ChangeLog: The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design,
       ApprovedAt: DateTimeOffset_3,
-      ApprovedBy: Catalina MacGyver
+      ApprovedBy: Antone Schaefer
     },
     {
-      FileName: concrete.et3,
-      InternalUniqueFileName: bbf5c8c2-cb16-8306-91d8-c5ac6be23c5c.et3,
+      FileName: buckinghamshire_holistic.mvb,
+      InternalUniqueFileName: 4d013bec-bb6e-b9b6-f1e0-5fe96f6a15e0.mvb,
       Revision: 2,
+      ChangeLog: Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support,
       ApprovedAt: DateTimeOffset_4,
-      ApprovedBy: Grover Torphy
+      ApprovedBy: Meaghan Predovic
     },
     {
-      FileName: swedish_krona.nzb,
-      InternalUniqueFileName: 3fe2459b-dbd4-ecc1-3b01-4d6ebbb6b9f1.nzb,
+      FileName: quality_functionality_back_end.fly,
+      InternalUniqueFileName: 70b886a9-a6bc-3275-c789-840bb6623865.fly,
       Revision: 3,
+      ChangeLog: The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design,
       ApprovedAt: DateTimeOffset_2,
-      ApprovedBy: Alison Harvey
+      ApprovedBy: Linwood Kunze
     }
   ],
   Id: Guid_1

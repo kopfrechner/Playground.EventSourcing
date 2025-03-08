@@ -1,16 +1,21 @@
+using Marten.Events;
 using Playground.EventSourcing.Aggregates.Common;
 
 namespace Playground.EventSourcing.Aggregates;
 
 public record DocumentAdded(Guid DocumentId, string Alias, DateTimeOffset CreatedAt, string CreatedBy) : IDomainEvent;
-public record CandidateFileRevisionUploaded(Guid DocumentId, string FileName, string InternalUniqueFileName, DateTimeOffset UploadedAt, string UploadedBy) : IDomainEvent;
-public record CandidateFileRevisionApproved(Guid DocumentId, string FileName, string InternalUniqueFileName, DateTimeOffset ApprovedAt, string ApprovedBy) : IDomainEvent;
-public record CandidateFileRevisionDeclined(Guid DocumentId, DateTimeOffset DeclinedAt, string DeclinedBy) : IDomainEvent;
+public record CandidateFileRevisionUploaded(Guid DocumentId, string FileName, string InternalUniqueFileName, string ChangeLog, DateTimeOffset UploadedAt, string UploadedBy) : IDomainEvent;
+public record CandidateFileRevisionApproved(Guid DocumentId, string FileName, string InternalUniqueFileName, string ChangeLog, string ApprovalComment, DateTimeOffset ApprovedAt, string ApprovedBy) : IDomainEvent;
+public record CandidateFileRevisionDeclined(Guid DocumentId, string DeclinedComment, DateTimeOffset DeclinedAt, string DeclinedBy) : IDomainEvent;
+
+//public record DocumentLocked(Guid DocumentId, DateTimeOffset DeclinedAt, string DeclinedBy) : IDomainEvent;
+//public record DocumentUnlocked(Guid DocumentId, DateTimeOffset DeclinedAt, string DeclinedBy) : IDomainEvent;
 
 public sealed record FileRevision(
     string FileName,
     string InternalUniqueFileName,
     int Revision,
+    string ChangeLog,
     DateTimeOffset ApprovedAt,
     string ApprovedBy
 );
@@ -68,6 +73,7 @@ public sealed record Document(
             @event.FileName,
             @event.InternalUniqueFileName,
             nextVersion,
+            @event.ChangeLog,
             @event.ApprovedAt,
             @event.ApprovedBy);
 

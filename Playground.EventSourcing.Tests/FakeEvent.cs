@@ -24,6 +24,8 @@ public static class FakeEvent
                     documentId,
                     f.System.FileName(fileExt),
                     $"{f.Random.Guid()}.{fileExt}",
+                    f.Commerce.ProductDescription(),
+                    f.Random.Words(20),
                     DateTimeOffset.Now,
                     f.Name.FullName()))
             .Generate();
@@ -37,6 +39,7 @@ public static class FakeEvent
                     documentId,
                     f.System.FileName(fileExt),
                     $"{f.Random.Guid()}.{fileExt}",
+                    f.Commerce.ProductDescription(),
                     DateTimeOffset.Now,
                     f.Name.FullName()))
             .Generate();
@@ -47,6 +50,7 @@ public static class FakeEvent
         return new Faker<CandidateFileRevisionDeclined>().CustomInstantiator(f =>
                 new CandidateFileRevisionDeclined(
                     documentId,
+                    f.Random.Words(20),
                     DateTimeOffset.Now,
                     f.Name.FullName()))
             .Generate();
