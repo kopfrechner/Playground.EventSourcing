@@ -1,7 +1,5 @@
 using Marten;
 using Marten.Events.Projections;
-using Microsoft.Extensions.Configuration;
-using Playground.EventSourcing.Aggregates;
 using Playground.EventSourcing.Aggregates.Common;
 using Playground.EventSourcing.Aggregates.Projections;
 using Weasel.Core;
@@ -31,17 +29,4 @@ public static class EventStoreSetup
             options.Projections.Add<ProductRevisionHistoryProjection>(ProjectionLifecycle.Inline);
         });
     }
-    
-    public static string ConnectionStringOrThrow()
-    {
-        var config = new ConfigurationBuilder()
-            .AddUserSecrets<Program>()
-            .Build();
-
-        var connectionString = config["ConnectionStrings:Postgres"]
-                               ?? throw new InvalidOperationException("Database connection string is missing.");
-        return connectionString;
-    }
 }
-
-internal abstract class Program;

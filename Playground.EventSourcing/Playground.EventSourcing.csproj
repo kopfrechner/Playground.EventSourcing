@@ -4,14 +4,11 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-      <UserSecretsId>552c7822-40bc-46e3-aa2c-0f14ba29ed87</UserSecretsId>
   </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Bogus" Version="35.6.2" />
       <PackageReference Include="Marten" Version="7.38.1" />
-      <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.2" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.2" />
     </ItemGroup>
 
 </Project>
