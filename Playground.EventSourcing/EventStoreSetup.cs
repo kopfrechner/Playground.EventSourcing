@@ -1,4 +1,5 @@
 using Marten;
+using Marten.Events.Projections;
 using Microsoft.Extensions.Configuration;
 using Playground.EventSourcing.Aggregates;
 using Weasel.Core;
@@ -23,6 +24,7 @@ public static class EventStoreSetup
             {
                 options.Events.AddEventType(type);
             }
+            options.Projections.Add<CandidateFileRevisionProjection>(ProjectionLifecycle.Inline);
         });
     }
     

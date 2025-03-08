@@ -1,0 +1,38 @@
+﻿{
+  Id: Guid_1,
+  Name: gold_common.mpga,
+  CreatedAt: DateTimeOffset_1,
+  CreatedBy: Camden Wehner,
+  OngoingApprovalProcess: false,
+  CurrentVersion: 3,
+  CurrentFileRevision: {
+    FileName: swedish_krona.nzb,
+    InternalUniqueFileName: 3fe2459b-dbd4-ecc1-3b01-4d6ebbb6b9f1.nzb,
+    Revision: 3,
+    ApprovedAt: DateTimeOffset_2,
+    ApprovedBy: Alison Harvey
+  },
+  Revisions: [
+    {
+      FileName: money_market_account_view_technologies.uvh,
+      InternalUniqueFileName: 1a0ebce0-aaa6-17db-8207-5bba5a87c9f3.uvh,
+      Revision: 1,
+      ApprovedAt: DateTimeOffset_3,
+      ApprovedBy: Catalina MacGyver
+    },
+    {
+      FileName: concrete.et3,
+      InternalUniqueFileName: bbf5c8c2-cb16-8306-91d8-c5ac6be23c5c.et3,
+      Revision: 2,
+      ApprovedAt: DateTimeOffset_4,
+      ApprovedBy: Grover Torphy
+    },
+    {
+      FileName: swedish_krona.nzb,
+      InternalUniqueFileName: 3fe2459b-dbd4-ecc1-3b01-4d6ebbb6b9f1.nzb,
+      Revision: 3,
+      ApprovedAt: DateTimeOffset_2,
+      ApprovedBy: Alison Harvey
+    }
+  ]
+}

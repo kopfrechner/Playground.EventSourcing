@@ -13,7 +13,7 @@ public abstract class TestsBase : IDisposable
         _store = EventStoreSetup.SetupDocumentStore(connectionString);
     }
     
-    protected IDocumentSession Session => _store.LightweightSession();
+    protected IDocumentSession NewSession() => _store.LightweightSession();
 
     public void Dispose()
     {
