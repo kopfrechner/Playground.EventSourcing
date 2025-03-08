@@ -56,10 +56,7 @@ public sealed record Document(
     
     private Document Apply(CandidateFileRevisionUploaded _)
     {
-        if (OngoingApprovalProcess)
-        {
-            throw new InvalidOperationException();
-        }
+        if (OngoingApprovalProcess) throw new InvalidOperationException("Already a document in Review");
         
         return this with
         {
@@ -69,10 +66,7 @@ public sealed record Document(
     
     private Document Apply(CandidateFileRevisionApproved @event)
     {
-        if (!OngoingApprovalProcess)
-        {
-            throw new InvalidOperationException("To add a file revision, there must be an ongoing approval process.");
-        }
+        if (!OngoingApprovalProcess) throw new InvalidOperationException("To add a file revision, there must be an ongoing approval process.");
         
         var nextVersion = CurrentVersion + 1;
         var newFileRevision = new FileRevision(
@@ -94,10 +88,7 @@ public sealed record Document(
     
     private Document Apply(CandidateFileRevisionDeclined _)
     {
-        if (!OngoingApprovalProcess)
-        {
-            throw new InvalidOperationException();
-        }
+        if (!OngoingApprovalProcess) throw new InvalidOperationException("No document to review");
         
         return this with
         {
@@ -107,6 +98,8 @@ public sealed record Document(
     
     private Document Apply(DocumentLocked locked)
     {
+        if (IsLocked) throw new InvalidOperationException("Tried to lock a document that is already locked.");
+        
         return this with
         {
             IsLocked = true,
@@ -117,6 +110,8 @@ public sealed record Document(
     
     private Document Apply(DocumentUnlocked unlocked)
     {
+        if (!IsLocked) throw new InvalidOperationException("Tried to unlock a document that is already unlocked.");
+        
         return this with
         {
             IsLocked = false,

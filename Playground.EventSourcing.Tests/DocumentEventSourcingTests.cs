@@ -63,7 +63,7 @@ public class DocumentEventSourcingTests(PostgresTestContainerFixture postgresFix
         // Arrange
         await using var session = NewSession();
         var documentId = Guid.NewGuid();
-        
+
         session.Events.StartStream<Document>(documentId,
             FakeEvent.DocumentAdded(documentId),
             FakeEvent.CandidateFileRevisionUploaded(documentId),
@@ -99,7 +99,7 @@ public class DocumentEventSourcingTests(PostgresTestContainerFixture postgresFix
         );
 
         await session.SaveChangesAsync();
-        
+
         // Act
         var history = await session.Query<CandidateFileRevisionHistoryEntry>()
             .OrderBy(x => x.EventTime)
@@ -108,13 +108,13 @@ public class DocumentEventSourcingTests(PostgresTestContainerFixture postgresFix
         // Assert
         await Verify(history);
     }
-    
+
     [Fact]
     public async Task GivenADocumentsAggregate_WhenUncommitedEventsAreApplied_ThenOnlyUncommitedEventsShouldBeSaved()
     {
         // Arrange
         await using var session = NewSession();
-        
+
         // Prepare some events
         var documentId = Guid.NewGuid();
         session.Events.Append(documentId,
@@ -123,22 +123,22 @@ public class DocumentEventSourcingTests(PostgresTestContainerFixture postgresFix
             FakeEvent.CandidateFileRevisionApproved(documentId)
         );
         await session.SaveChangesAsync();
-        
+
         // Load saved Aggregate
         var document = await session.Events.AggregateStreamAsync<Document>(documentId);
         document.ShouldNotBeNull();
-        
+
         // Add uncommited events via the aggregate
         document.ApplyEvents(
             FakeEvent.CandidateFileRevisionUploaded(documentId),
             FakeEvent.CandidateFileRevisionDeclined(documentId),
             FakeEvent.CandidateFileRevisionUploaded(documentId),
             FakeEvent.CandidateFileRevisionApproved(documentId));
-        
+
         // Act
         session.Events.AppendUncommitedEventsAndClear(document);
         await session.SaveChangesAsync();
-        
+
         // Assert
         var reloadedDocument = await session.Events.AggregateStreamAsync<Document>(documentId);
         await Verify(reloadedDocument);

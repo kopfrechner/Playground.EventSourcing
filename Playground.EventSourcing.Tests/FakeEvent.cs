@@ -55,4 +55,26 @@ public static class FakeEvent
                     f.Name.FullName()))
             .Generate();
     }
+    
+    public static DocumentLocked DocumentLocked(Guid documentId)
+    {
+        return new Faker<DocumentLocked>().CustomInstantiator(f =>
+                new DocumentLocked(
+                    documentId,
+                    f.Random.Words(20),
+                    DateTimeOffset.Now,
+                    f.Name.FullName()))
+            .Generate();
+    }
+    
+    public static DocumentUnlocked DocumentUnlocked(Guid documentId)
+    {
+        return new Faker<DocumentUnlocked>().CustomInstantiator(f =>
+                new DocumentUnlocked(
+                    documentId,
+                    f.Random.Words(20),
+                    DateTimeOffset.Now,
+                    f.Name.FullName()))
+            .Generate();
+    }
 }
