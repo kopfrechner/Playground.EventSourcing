@@ -1,8 +1,9 @@
 ﻿using Playground.EventSourcing;
+using Playground.EventSourcing.Aggregates;
 
 // Configure Marten
-var connectionString = EventStoreHelper.ConnectionStringOrThrow();
-var store = EventStoreHelper.SetupDocumentStore(connectionString);
+var connectionString = EventStoreSetup.ConnectionStringOrThrow();
+var store = EventStoreSetup.SetupDocumentStore(connectionString);
 
 await using var session = store.LightweightSession();
 

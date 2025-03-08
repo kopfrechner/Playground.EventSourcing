@@ -1,4 +1,4 @@
-namespace Playground.EventSourcing;
+namespace Playground.EventSourcing.Aggregates;
 
 public record OrderPlaced(Guid OrderId, string ProductName, int Quantity) : IEvent;
 public record OrderShipped(Guid OrderId, DateTime ShippedDate) : IEvent;

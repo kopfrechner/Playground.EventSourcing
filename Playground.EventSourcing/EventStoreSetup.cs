@@ -1,10 +1,11 @@
 using Marten;
 using Microsoft.Extensions.Configuration;
+using Playground.EventSourcing.Aggregates;
 using Weasel.Core;
 
 namespace Playground.EventSourcing;
 
-public static class EventStoreHelper
+public static class EventStoreSetup
 {
     public static DocumentStore SetupDocumentStore(string connectionString)
     {
