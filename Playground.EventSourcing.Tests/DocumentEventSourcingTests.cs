@@ -92,7 +92,7 @@ public class DocumentEventSourcingTests : TestsBase
         );
 
         var documentId2 = Guid.NewGuid();
-        session.Events.StartStream(documentId2,
+        session.Events.Append(documentId2,
             FakeEvent.DocumentAdded(documentId2),
             FakeEvent.CandidateFileRevisionUploaded(documentId2),
             FakeEvent.CandidateFileRevisionDeclined(documentId2)
@@ -117,7 +117,7 @@ public class DocumentEventSourcingTests : TestsBase
         
         // Prepare some events
         var documentId = Guid.NewGuid();
-        session.Events.StartStream(documentId,
+        session.Events.Append(documentId,
             FakeEvent.DocumentAdded(documentId),
             FakeEvent.CandidateFileRevisionUploaded(documentId),
             FakeEvent.CandidateFileRevisionApproved(documentId)
