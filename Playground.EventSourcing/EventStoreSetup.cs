@@ -1,6 +1,7 @@
 using Marten;
 using Marten.Events.Projections;
 using Microsoft.Extensions.Configuration;
+using Playground.EventSourcing.Aggregates;
 using Playground.EventSourcing.Aggregates.Common;
 using Playground.EventSourcing.Aggregates.Projections;
 using Weasel.Core;
@@ -17,8 +18,8 @@ public static class EventStoreSetup
             options.Connection(connectionString);
             options.AutoCreateSchemaObjects = AutoCreate.CreateOrUpdate;
         
-            var eventTypes = typeof(IEvent).Assembly.GetTypes()
-                .Where(t => typeof(IEvent).IsAssignableFrom(t) && t is { IsClass: true, IsAbstract: false })
+            var eventTypes = typeof(IDomainEvent).Assembly.GetTypes()
+                .Where(t => typeof(IDomainEvent).IsAssignableFrom(t) && t is { IsClass: true, IsAbstract: false })
                 .ToList();
 
             foreach (var type in eventTypes)

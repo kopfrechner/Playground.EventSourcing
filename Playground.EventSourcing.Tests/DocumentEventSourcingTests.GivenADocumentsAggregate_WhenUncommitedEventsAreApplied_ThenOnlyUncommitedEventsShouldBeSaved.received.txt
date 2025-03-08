@@ -3,13 +3,13 @@
   CreatedAt: DateTimeOffset_1,
   CreatedBy: Camden Wehner,
   OngoingApprovalProcess: false,
-  CurrentVersion: 3,
+  CurrentVersion: 2,
   CurrentFileRevision: {
-    FileName: swedish_krona.nzb,
-    InternalUniqueFileName: 3fe2459b-dbd4-ecc1-3b01-4d6ebbb6b9f1.nzb,
-    Revision: 3,
+    FileName: handmade_rubber_table.wmls,
+    InternalUniqueFileName: 56ef32a3-5542-a501-8a66-2f5d20180733.wmls,
+    Revision: 2,
     ApprovedAt: DateTimeOffset_2,
-    ApprovedBy: Alison Harvey
+    ApprovedBy: Maximus Ratke
   },
   Revisions: [
     {
@@ -20,18 +20,11 @@
       ApprovedBy: Catalina MacGyver
     },
     {
-      FileName: concrete.et3,
-      InternalUniqueFileName: bbf5c8c2-cb16-8306-91d8-c5ac6be23c5c.et3,
+      FileName: handmade_rubber_table.wmls,
+      InternalUniqueFileName: 56ef32a3-5542-a501-8a66-2f5d20180733.wmls,
       Revision: 2,
-      ApprovedAt: DateTimeOffset_4,
-      ApprovedBy: Grover Torphy
-    },
-    {
-      FileName: swedish_krona.nzb,
-      InternalUniqueFileName: 3fe2459b-dbd4-ecc1-3b01-4d6ebbb6b9f1.nzb,
-      Revision: 3,
       ApprovedAt: DateTimeOffset_2,
-      ApprovedBy: Alison Harvey
+      ApprovedBy: Maximus Ratke
     }
   ],
   Id: Guid_1

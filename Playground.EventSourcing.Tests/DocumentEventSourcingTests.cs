@@ -81,6 +81,7 @@ public class DocumentEventSourcingTests : TestsBase
     [Fact]
     public async Task GivenAMultipleEventsOverDocuments_WhenQueryingHistory_ThenItShouldReturnAllEvents()
     {
+        // Arrange
         await using var session = NewSession();
 
         var documentId1 = Guid.NewGuid();
@@ -99,10 +100,47 @@ public class DocumentEventSourcingTests : TestsBase
 
         await session.SaveChangesAsync();
         
+        // Act
         var history = await session.Query<CandidateFileRevisionHistoryEntry>()
             .OrderBy(x => x.EventTime)
             .ToListAsync();
 
+        // Assert
         await Verify(history);
+    }
+    
+    [Fact]
+    public async Task GivenADocumentsAggregate_WhenUncommitedEventsAreApplied_ThenOnlyUncommitedEventsShouldBeSaved()
+    {
+        // Arrange
+        await using var session = NewSession();
+        
+        // Prepare some events
+        var documentId = Guid.NewGuid();
+        session.Events.StartStream(documentId,
+            FakeEvent.DocumentAdded(documentId),
+            FakeEvent.CandidateFileRevisionUploaded(documentId),
+            FakeEvent.CandidateFileRevisionApproved(documentId)
+        );
+        await session.SaveChangesAsync();
+        
+        // Load saved Aggregate
+        var document = await session.Events.AggregateStreamAsync<Document>(documentId);
+        document.ShouldNotBeNull();
+        
+        // Add uncommited events via the aggregate
+        document.ApplyEvents(
+            FakeEvent.CandidateFileRevisionUploaded(documentId),
+            FakeEvent.CandidateFileRevisionDeclined(documentId),
+            FakeEvent.CandidateFileRevisionUploaded(documentId),
+            FakeEvent.CandidateFileRevisionApproved(documentId));
+        
+        // Act
+        session.Events.AppendUncommitedEventsAndClear(document);
+        await session.SaveChangesAsync();
+        
+        // Assert
+        var reloadedDocument = await session.Events.AggregateStreamAsync<Document>(documentId);
+        await Verify(reloadedDocument);
     }
 }

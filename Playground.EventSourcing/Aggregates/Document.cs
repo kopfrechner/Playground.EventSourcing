@@ -2,10 +2,10 @@ using Playground.EventSourcing.Aggregates.Common;
 
 namespace Playground.EventSourcing.Aggregates;
 
-public record DocumentAdded(Guid DocumentId, string Alias, DateTimeOffset CreatedAt, string CreatedBy) : IEvent;
-public record CandidateFileRevisionUploaded(Guid DocumentId, string FileName, string InternalUniqueFileName, DateTimeOffset UploadedAt, string UploadedBy) : IEvent;
-public record CandidateFileRevisionApproved(Guid DocumentId, string FileName, string InternalUniqueFileName, DateTimeOffset ApprovedAt, string ApprovedBy) : IEvent;
-public record CandidateFileRevisionDeclined(Guid DocumentId, DateTimeOffset DeclinedAt, string DeclinedBy) : IEvent;
+public record DocumentAdded(Guid DocumentId, string Alias, DateTimeOffset CreatedAt, string CreatedBy) : IDomainEvent;
+public record CandidateFileRevisionUploaded(Guid DocumentId, string FileName, string InternalUniqueFileName, DateTimeOffset UploadedAt, string UploadedBy) : IDomainEvent;
+public record CandidateFileRevisionApproved(Guid DocumentId, string FileName, string InternalUniqueFileName, DateTimeOffset ApprovedAt, string ApprovedBy) : IDomainEvent;
+public record CandidateFileRevisionDeclined(Guid DocumentId, DateTimeOffset DeclinedAt, string DeclinedBy) : IDomainEvent;
 
 public sealed record FileRevision(
     string FileName,
@@ -23,7 +23,7 @@ public sealed record Document(
     bool OngoingApprovalProcess,
     int CurrentVersion,
     FileRevision? CurrentFileRevision,
-    IReadOnlyList<FileRevision> Revisions)
+    IReadOnlyList<FileRevision> Revisions) : AggregateBase<Document>(Id)
 {
     public static Document Create(DocumentAdded added) => new(
         added.DocumentId,
@@ -34,16 +34,16 @@ public sealed record Document(
         CurrentFileRevision: null,
         OngoingApprovalProcess: false,
         Revisions: []);
-
-    public Document ApplyEvent(IEvent @event) => @event switch
+    
+    protected override Document ApplyEventInternal(IDomainEvent @event)=> @event switch
     {
         CandidateFileRevisionUploaded uploaded => Apply(uploaded),
         CandidateFileRevisionApproved approved => Apply(approved),
         CandidateFileRevisionDeclined declined => Apply(declined),
         _ => throw new InvalidOperationException($"Unsupported event type: {@event.GetType().Name}")
-    };
+    }; 
     
-    private Document Apply(CandidateFileRevisionUploaded @event)
+    private Document Apply(CandidateFileRevisionUploaded _)
     {
         if (OngoingApprovalProcess)
         {
@@ -80,7 +80,7 @@ public sealed record Document(
         };
     }
     
-    private Document Apply(CandidateFileRevisionDeclined @event)
+    private Document Apply(CandidateFileRevisionDeclined _)
     {
         if (!OngoingApprovalProcess)
         {
