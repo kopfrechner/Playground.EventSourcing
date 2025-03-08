@@ -4,8 +4,8 @@ namespace Playground.EventSourcing.Aggregates.Projections;
 
 public record CandidateProductRevisionHistoryEntry(
     Guid ProductId,
-    string? FileName,
-    string? InternalUniqueFileName,
+    string? Description,
+    string? InternalUniqueDescription,
     string? ChangeLog,
     DateTimeOffset EventTime,
     ProductRevisionApprovalStatus Status,
@@ -34,8 +34,8 @@ public class CandidateProductRevisionHistoryProjection : MultiStreamProjection<C
 
     public CandidateProductRevisionHistoryEntry Create(CandidateProductRevisionUploaded @event) =>
         new(@event.ProductId,
-            @event.FileName,
-            @event.InternalUniqueFileName,
+            @event.Description,
+            @event.InternalUniqueDescription,
             @event.ChangeLog,
             @event.UploadedAt,
             ProductRevisionApprovalStatus.Pending,
@@ -44,8 +44,8 @@ public class CandidateProductRevisionHistoryProjection : MultiStreamProjection<C
 
     public CandidateProductRevisionHistoryEntry Create(CandidateProductRevisionApproved @event) =>
         new(@event.ProductId,
-            @event.FileName,
-            @event.InternalUniqueFileName,
+            @event.Description,
+            @event.InternalUniqueDescription,
             @event.ChangeLog,
             @event.ApprovedAt,
             ProductRevisionApprovalStatus.Approved,
@@ -54,8 +54,8 @@ public class CandidateProductRevisionHistoryProjection : MultiStreamProjection<C
 
     public CandidateProductRevisionHistoryEntry Create(CandidateProductRevisionDeclined @event) =>
         new(@event.ProductId,
-            FileName: null,
-            InternalUniqueFileName: null,
+            Description: null,
+            InternalUniqueDescription: null,
             ChangeLog: null,
             @event.DeclinedAt,
             ProductRevisionApprovalStatus.Declined,

@@ -6,8 +6,8 @@
   IsLocked: false,
   CurrentVersion: 2,
   CurrentProductRevision: {
-    FileName: trail_xml_focus_group.sis,
-    InternalUniqueFileName: 95e3b63f-e4dc-10cd-fdfd-dd3f68e7f717.sis,
+    Description: trail_xml_focus_group.sis,
+    InternalUniqueDescription: 95e3b63f-e4dc-10cd-fdfd-dd3f68e7f717.sis,
     Revision: 2,
     ChangeLog: The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients,
     ApprovedAt: DateTimeOffset_2,
@@ -15,16 +15,16 @@
   },
   Revisions: [
     {
-      FileName: global_markets.uu,
-      InternalUniqueFileName: 0ebce08e-a61a-dbaa-1782-075bba5a87c9.uu,
+      Description: global_markets.uu,
+      InternalUniqueDescription: 0ebce08e-a61a-dbaa-1782-075bba5a87c9.uu,
       Revision: 1,
       ChangeLog: The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design,
       ApprovedAt: DateTimeOffset_3,
       ApprovedBy: Antone Schaefer
     },
     {
-      FileName: trail_xml_focus_group.sis,
-      InternalUniqueFileName: 95e3b63f-e4dc-10cd-fdfd-dd3f68e7f717.sis,
+      Description: trail_xml_focus_group.sis,
+      InternalUniqueDescription: 95e3b63f-e4dc-10cd-fdfd-dd3f68e7f717.sis,
       Revision: 2,
       ChangeLog: The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients,
       ApprovedAt: DateTimeOffset_2,

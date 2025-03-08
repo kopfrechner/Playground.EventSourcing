@@ -1,7 +1,7 @@
 ﻿{
   Id: Guid_1,
-  FileName: fresh_bandwidth.st,
-  InternalUniqueFileName: a8382ea4-0d4a-85dc-644b-6d45cd41d835.st,
+  Description: fresh_bandwidth.st,
+  InternalUniqueDescription: a8382ea4-0d4a-85dc-644b-6d45cd41d835.st,
   UploadedAt: DateTimeOffset_1,
   UploadedBy: Fanny Purdy
 }

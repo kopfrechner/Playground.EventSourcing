@@ -22,9 +22,9 @@ public static class FakeEvent
         return new Faker<CandidateProductRevisionApproved>().CustomInstantiator(f =>
                 new CandidateProductRevisionApproved(
                     productId,
-                    f.System.FileName(fileExt),
-                    $"{f.Random.Guid()}.{fileExt}",
                     f.Commerce.ProductDescription(),
+                    f.Commerce.ProductDescription(),
+                    f.Random.Words(20),
                     f.Random.Words(20),
                     DateTimeOffset.Now,
                     f.Name.FullName()))
@@ -37,9 +37,9 @@ public static class FakeEvent
         return new Faker<CandidateProductRevisionUploaded>().CustomInstantiator(f =>
                 new CandidateProductRevisionUploaded(
                     productId,
-                    f.System.FileName(fileExt),
-                    $"{f.Random.Guid()}.{fileExt}",
                     f.Commerce.ProductDescription(),
+                    f.Commerce.ProductDescription(),
+                    f.Random.Words(20),
                     DateTimeOffset.Now,
                     f.Name.FullName()))
             .Generate();

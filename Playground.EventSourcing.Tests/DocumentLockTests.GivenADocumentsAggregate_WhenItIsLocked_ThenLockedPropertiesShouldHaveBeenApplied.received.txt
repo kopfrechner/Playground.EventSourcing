@@ -8,8 +8,8 @@
   LockedChangedAt: DateTimeOffset_2,
   CurrentVersion: 1,
   CurrentProductRevision: {
-    FileName: program_automated_global.geo,
-    InternalUniqueFileName: c5d89183-6bac-3ce2-5cf5-3cde341ec07a.geo,
+    Description: program_automated_global.geo,
+    InternalUniqueDescription: c5d89183-6bac-3ce2-5cf5-3cde341ec07a.geo,
     Revision: 1,
     ChangeLog: New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016,
     ApprovedAt: DateTimeOffset_3,
@@ -17,8 +17,8 @@
   },
   Revisions: [
     {
-      FileName: program_automated_global.geo,
-      InternalUniqueFileName: c5d89183-6bac-3ce2-5cf5-3cde341ec07a.geo,
+      Description: program_automated_global.geo,
+      InternalUniqueDescription: c5d89183-6bac-3ce2-5cf5-3cde341ec07a.geo,
       Revision: 1,
       ChangeLog: New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016,
       ApprovedAt: DateTimeOffset_3,
@@ -29,16 +29,16 @@
   UncommittedEvents: [
     {
       ProductId: Guid_1,
-      FileName: customer_24_7.hjson,
-      InternalUniqueFileName: 1c137ba8-be4f-7cae-063a-c38ee0bc0e1a.hjson,
+      Description: customer_24_7.hjson,
+      InternalUniqueDescription: 1c137ba8-be4f-7cae-063a-c38ee0bc0e1a.hjson,
       ChangeLog: Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support,
       UploadedAt: DateTimeOffset_4,
       UploadedBy: Chasity Reynolds
     },
     {
       ProductId: Guid_1,
-      FileName: program_automated_global.geo,
-      InternalUniqueFileName: c5d89183-6bac-3ce2-5cf5-3cde341ec07a.geo,
+      Description: program_automated_global.geo,
+      InternalUniqueDescription: c5d89183-6bac-3ce2-5cf5-3cde341ec07a.geo,
       ChangeLog: New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016,
       ApprovalComment: Handmade Rubber Table index Generic Metal Computer Awesome Steel Fish Inverse withdrawal Moldovan Leu Rapids Internal pricing structure killer Applications enable AI withdrawal PCI application solutions uniform Christmas Island,
       ApprovedAt: DateTimeOffset_3,

@@ -4,8 +4,8 @@ namespace Playground.EventSourcing.Aggregates.Projections;
 
 public record CandidateProductRevisionState(
     Guid Id,
-    string FileName,
-    string InternalUniqueFileName,
+    string Description,
+    string InternalUniqueDescription,
     DateTimeOffset UploadedAt,
     string UploadedBy);
 
@@ -15,8 +15,8 @@ public class CandidateProductRevisionProjection : SingleStreamProjection<Candida
     {
         return new CandidateProductRevisionState(
             @event.ProductId,
-            @event.FileName,
-            @event.InternalUniqueFileName,
+            @event.Description,
+            @event.InternalUniqueDescription,
             @event.UploadedAt,
             @event.UploadedBy);
     }

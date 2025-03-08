@@ -3,15 +3,15 @@ using Playground.EventSourcing.Aggregates.Common;
 namespace Playground.EventSourcing.Aggregates;
 
 public record ProductAdded(Guid ProductId, string Alias, DateTimeOffset CreatedAt, string CreatedBy) : IDomainEvent;
-public record CandidateProductRevisionUploaded(Guid ProductId, string FileName, string InternalUniqueFileName, string ChangeLog, DateTimeOffset UploadedAt, string UploadedBy) : IDomainEvent;
-public record CandidateProductRevisionApproved(Guid ProductId, string FileName, string InternalUniqueFileName, string ChangeLog, string ApprovalComment, DateTimeOffset ApprovedAt, string ApprovedBy) : IDomainEvent;
+public record CandidateProductRevisionUploaded(Guid ProductId, string Description, string InternalUniqueDescription, string ChangeLog, DateTimeOffset UploadedAt, string UploadedBy) : IDomainEvent;
+public record CandidateProductRevisionApproved(Guid ProductId, string Description, string InternalUniqueDescription, string ChangeLog, string ApprovalComment, DateTimeOffset ApprovedAt, string ApprovedBy) : IDomainEvent;
 public record CandidateProductRevisionDeclined(Guid ProductId, string DeclinedComment, DateTimeOffset DeclinedAt, string DeclinedBy) : IDomainEvent;
 public record ProductLocked(Guid ProductId, string LockReason, DateTimeOffset LockedAt, string LockedBy) : IDomainEvent;
 public record ProductUnlocked(Guid ProductId, string UnlockReason, DateTimeOffset UnlockedAt, string UnlockedBy) : IDomainEvent;
 
 public sealed record ProductRevision(
-    string FileName,
-    string InternalUniqueFileName,
+    string Description,
+    string InternalUniqueDescription,
     int Revision,
     string ChangeLog,
     DateTimeOffset ApprovedAt,
@@ -70,8 +70,8 @@ public sealed record Product(
         
         var nextVersion = CurrentVersion + 1;
         var newProductRevision = new ProductRevision(
-            @event.FileName,
-            @event.InternalUniqueFileName,
+            @event.Description,
+            @event.InternalUniqueDescription,
             nextVersion,
             @event.ChangeLog,
             @event.ApprovedAt,

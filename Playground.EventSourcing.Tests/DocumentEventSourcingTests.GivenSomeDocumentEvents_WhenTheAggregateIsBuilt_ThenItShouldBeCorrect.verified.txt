@@ -6,8 +6,8 @@
   IsLocked: false,
   CurrentVersion: 3,
   CurrentProductRevision: {
-    FileName: quality_functionality_back_end.fly,
-    InternalUniqueFileName: 70b886a9-a6bc-3275-c789-840bb6623865.fly,
+    Description: quality_functionality_back_end.fly,
+    InternalUniqueDescription: 70b886a9-a6bc-3275-c789-840bb6623865.fly,
     Revision: 3,
     ChangeLog: The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design,
     ApprovedAt: DateTimeOffset_2,
@@ -15,24 +15,24 @@
   },
   Revisions: [
     {
-      FileName: global_markets.uu,
-      InternalUniqueFileName: 0ebce08e-a61a-dbaa-1782-075bba5a87c9.uu,
+      Description: global_markets.uu,
+      InternalUniqueDescription: 0ebce08e-a61a-dbaa-1782-075bba5a87c9.uu,
       Revision: 1,
       ChangeLog: The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design,
       ApprovedAt: DateTimeOffset_3,
       ApprovedBy: Antone Schaefer
     },
     {
-      FileName: buckinghamshire_holistic.mvb,
-      InternalUniqueFileName: 4d013bec-bb6e-b9b6-f1e0-5fe96f6a15e0.mvb,
+      Description: buckinghamshire_holistic.mvb,
+      InternalUniqueDescription: 4d013bec-bb6e-b9b6-f1e0-5fe96f6a15e0.mvb,
       Revision: 2,
       ChangeLog: Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support,
       ApprovedAt: DateTimeOffset_4,
       ApprovedBy: Meaghan Predovic
     },
     {
-      FileName: quality_functionality_back_end.fly,
-      InternalUniqueFileName: 70b886a9-a6bc-3275-c789-840bb6623865.fly,
+      Description: quality_functionality_back_end.fly,
+      InternalUniqueDescription: 70b886a9-a6bc-3275-c789-840bb6623865.fly,
       Revision: 3,
       ChangeLog: The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design,
       ApprovedAt: DateTimeOffset_2,
