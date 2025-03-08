@@ -2,10 +2,10 @@ using Marten.Events.Projections;
 
 namespace Playground.EventSourcing.Aggregates.Projections;
 
-public record CandidateProductRevisionHistoryEntry(
+public record ProductRevisionHistoryEntry(
     Guid ProductId,
     string? Description,
-    string? InternalUniqueDescription,
+    string? InternalDescription,
     string? ChangeLog,
     DateTimeOffset EventTime,
     ProductRevisionApprovalStatus Status,
@@ -23,39 +23,39 @@ public enum ProductRevisionApprovalStatus
     Declined
 }
 
-public class CandidateProductRevisionHistoryProjection : MultiStreamProjection<CandidateProductRevisionHistoryEntry, Guid>
+public class ProductRevisionHistoryProjection : MultiStreamProjection<ProductRevisionHistoryEntry, Guid>
 {
-    public CandidateProductRevisionHistoryProjection()
+    public ProductRevisionHistoryProjection()
     {
-        Identity<CandidateProductRevisionUploaded>(_ => Guid.NewGuid());
-        Identity<CandidateProductRevisionApproved>(_ => Guid.NewGuid());
-        Identity<CandidateProductRevisionDeclined>(_ => Guid.NewGuid());
+        Identity<ProductRevisionUploaded>(_ => Guid.NewGuid());
+        Identity<ProductRevisionApproved>(_ => Guid.NewGuid());
+        Identity<ProductRevisionDeclined>(_ => Guid.NewGuid());
     }
 
-    public CandidateProductRevisionHistoryEntry Create(CandidateProductRevisionUploaded @event) =>
+    public ProductRevisionHistoryEntry Create(ProductRevisionUploaded @event) =>
         new(@event.ProductId,
             @event.Description,
-            @event.InternalUniqueDescription,
+            @event.InternalDescription,
             @event.ChangeLog,
             @event.UploadedAt,
             ProductRevisionApprovalStatus.Pending,
             null,
             @event.UploadedBy);
 
-    public CandidateProductRevisionHistoryEntry Create(CandidateProductRevisionApproved @event) =>
+    public ProductRevisionHistoryEntry Create(ProductRevisionApproved @event) =>
         new(@event.ProductId,
             @event.Description,
-            @event.InternalUniqueDescription,
+            @event.InternalDescription,
             @event.ChangeLog,
             @event.ApprovedAt,
             ProductRevisionApprovalStatus.Approved,
             @event.ApprovalComment,
             @event.ApprovedBy);
 
-    public CandidateProductRevisionHistoryEntry Create(CandidateProductRevisionDeclined @event) =>
+    public ProductRevisionHistoryEntry Create(ProductRevisionDeclined @event) =>
         new(@event.ProductId,
             Description: null,
-            InternalUniqueDescription: null,
+            InternalDescription: null,
             ChangeLog: null,
             @event.DeclinedAt,
             ProductRevisionApprovalStatus.Declined,

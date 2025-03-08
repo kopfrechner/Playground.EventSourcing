@@ -51,7 +51,7 @@ public class ProductTests(PostgresTestContainerFixture postgresFixture) : TestsB
         await session.SaveChangesAsync();
 
         // Act
-        var candidateProductRevision = await session.LoadAsync<CandidateProductRevisionState>(productId);
+        var candidateProductRevision = await session.LoadAsync<ProductRevisionToReviewState>(productId);
 
         // Assert
         await Verify(candidateProductRevision);
@@ -72,7 +72,7 @@ public class ProductTests(PostgresTestContainerFixture postgresFixture) : TestsB
         await session.SaveChangesAsync();
 
         // Act
-        var candidateProductRevision = await session.LoadAsync<CandidateProductRevisionState>(productId);
+        var candidateProductRevision = await session.LoadAsync<ProductRevisionToReviewState>(productId);
 
         // Assert
         candidateProductRevision.ShouldBeNull();
@@ -101,7 +101,7 @@ public class ProductTests(PostgresTestContainerFixture postgresFixture) : TestsB
         await session.SaveChangesAsync();
 
         // Act
-        var history = await session.Query<CandidateProductRevisionHistoryEntry>()
+        var history = await session.Query<ProductRevisionHistoryEntry>()
             .OrderBy(x => x.EventTime)
             .ToListAsync();
 

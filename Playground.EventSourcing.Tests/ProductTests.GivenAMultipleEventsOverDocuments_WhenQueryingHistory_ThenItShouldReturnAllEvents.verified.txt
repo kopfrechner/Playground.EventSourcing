@@ -2,7 +2,7 @@
   {
     ProductId: Guid_1,
     Description: facilitate_strategist_best_of_breed.pwn,
-    InternalUniqueDescription: 5f6130c1-ec27-01fe-20ce-c877e19aa87b.pwn,
+    InternalDescription: 5f6130c1-ec27-01fe-20ce-c877e19aa87b.pwn,
     ChangeLog: The Football Is Good For Training And Recreational Purposes,
     EventTime: DateTimeOffset_1,
     PerformedBy: Elian Wintheiser
@@ -10,7 +10,7 @@
   {
     ProductId: Guid_1,
     Description: global_markets.uu,
-    InternalUniqueDescription: 0ebce08e-a61a-dbaa-1782-075bba5a87c9.uu,
+    InternalDescription: 0ebce08e-a61a-dbaa-1782-075bba5a87c9.uu,
     ChangeLog: The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design,
     EventTime: DateTimeOffset_2,
     Status: Approved,
@@ -20,7 +20,7 @@
   {
     ProductId: Guid_2,
     Description: web_readiness_credit_card_account_steel.sdd,
-    InternalUniqueDescription: 205d2f66-0718-7c33-469b-45e23fd4dbc1.sdd,
+    InternalDescription: 205d2f66-0718-7c33-469b-45e23fd4dbc1.sdd,
     ChangeLog: The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive,
     EventTime: DateTimeOffset_3,
     PerformedBy: Carli Gaylord

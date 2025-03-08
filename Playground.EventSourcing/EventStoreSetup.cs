@@ -27,8 +27,8 @@ public static class EventStoreSetup
                 options.Events.AddEventType(type);
             }
             
-            options.Projections.Add<CandidateProductRevisionProjection>(ProjectionLifecycle.Inline);
-            options.Projections.Add<CandidateProductRevisionHistoryProjection>(ProjectionLifecycle.Inline);
+            options.Projections.Add<ProductRevisionToReviewProjection>(ProjectionLifecycle.Inline);
+            options.Projections.Add<ProductRevisionHistoryProjection>(ProjectionLifecycle.Inline);
         });
     }
     

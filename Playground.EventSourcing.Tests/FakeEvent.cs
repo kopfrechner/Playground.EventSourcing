@@ -16,10 +16,10 @@ public static class FakeEvent
             .Generate();
     }
 
-    public static CandidateProductRevisionApproved CandidateProductRevisionApproved(Guid productId)
+    public static ProductRevisionApproved CandidateProductRevisionApproved(Guid productId)
     {
-        return new Faker<CandidateProductRevisionApproved>().CustomInstantiator(f =>
-                new CandidateProductRevisionApproved(
+        return new Faker<ProductRevisionApproved>().CustomInstantiator(f =>
+                new ProductRevisionApproved(
                     productId,
                     f.Commerce.ProductDescription(),
                     f.Commerce.ProductDescription(),
@@ -30,10 +30,10 @@ public static class FakeEvent
             .Generate();
     }
     
-    public static CandidateProductRevisionUploaded CandidateProductRevisionUploaded(Guid productId)
+    public static ProductRevisionUploaded CandidateProductRevisionUploaded(Guid productId)
     {
-        return new Faker<CandidateProductRevisionUploaded>().CustomInstantiator(f =>
-                new CandidateProductRevisionUploaded(
+        return new Faker<ProductRevisionUploaded>().CustomInstantiator(f =>
+                new ProductRevisionUploaded(
                     productId,
                     f.Commerce.ProductDescription(),
                     f.Commerce.ProductDescription(),
@@ -43,10 +43,10 @@ public static class FakeEvent
             .Generate();
     }
     
-    public static CandidateProductRevisionDeclined CandidateProductRevisionDeclined(Guid productId)
+    public static ProductRevisionDeclined CandidateProductRevisionDeclined(Guid productId)
     {
-        return new Faker<CandidateProductRevisionDeclined>().CustomInstantiator(f =>
-                new CandidateProductRevisionDeclined(
+        return new Faker<ProductRevisionDeclined>().CustomInstantiator(f =>
+                new ProductRevisionDeclined(
                     productId,
                     f.Random.Words(20),
                     DateTimeOffset.Now,
