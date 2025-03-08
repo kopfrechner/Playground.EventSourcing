@@ -66,7 +66,7 @@ public sealed record Product(
     
     private Product Apply(CandidateProductRevisionApproved @event)
     {
-        if (!OngoingApprovalProcess) throw new InvalidOperationException("To add a file revision, there must be an ongoing approval process.");
+        if (!OngoingApprovalProcess) throw new InvalidOperationException("To add a product revision, there must be an ongoing approval process.");
         
         var nextVersion = CurrentVersion + 1;
         var newProductRevision = new ProductRevision(

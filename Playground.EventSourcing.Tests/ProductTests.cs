@@ -6,7 +6,7 @@ using Shouldly;
 
 namespace Playground.EventSourcing.Tests;
 
-public class ProductEventSourcingTests(PostgresTestContainerFixture postgresFixture) : TestsBase(postgresFixture)
+public class ProductTests(PostgresTestContainerFixture postgresFixture) : TestsBase(postgresFixture)
 {
     [Fact]
     public async Task GivenSomeProductEvents_WhenTheAggregateIsBuilt_ThenItShouldBeCorrect()

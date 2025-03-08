@@ -10,7 +10,7 @@ public static class FakeEvent
         return new Faker<ProductAdded>().CustomInstantiator(f =>
                 new ProductAdded(
                     productId,
-                    f.System.FileName(f.System.CommonFileExt()),
+                    f.Commerce.ProductName(),
                     DateTimeOffset.Now,
                     f.Name.FullName()))
             .Generate();
@@ -18,7 +18,6 @@ public static class FakeEvent
 
     public static CandidateProductRevisionApproved CandidateProductRevisionApproved(Guid productId)
     {
-        var fileExt = new Faker().System.FileExt();
         return new Faker<CandidateProductRevisionApproved>().CustomInstantiator(f =>
                 new CandidateProductRevisionApproved(
                     productId,
@@ -33,7 +32,6 @@ public static class FakeEvent
     
     public static CandidateProductRevisionUploaded CandidateProductRevisionUploaded(Guid productId)
     {
-        var fileExt = new Faker().System.FileExt();
         return new Faker<CandidateProductRevisionUploaded>().CustomInstantiator(f =>
                 new CandidateProductRevisionUploaded(
                     productId,
