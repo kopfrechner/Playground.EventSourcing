@@ -15,8 +15,8 @@ public class ProductLockTests(PostgresTestContainerFixture postgresFixture) :Tes
         var product = Product
             .Create(FakeEvent.ProductAdded(productId))
             .ApplyEvents(
-                FakeEvent.CandidateFileRevisionUploaded(productId),
-                FakeEvent.CandidateFileRevisionApproved(productId));
+                FakeEvent.CandidateProductRevisionUploaded(productId),
+                FakeEvent.CandidateProductRevisionApproved(productId));
         
         // Act
         product = product.ApplyEvent(FakeEvent.ProductLocked(productId));
@@ -34,8 +34,8 @@ public class ProductLockTests(PostgresTestContainerFixture postgresFixture) :Tes
         var product = Product
             .Create(FakeEvent.ProductAdded(productId))
             .ApplyEvents(
-                FakeEvent.CandidateFileRevisionUploaded(productId),
-                FakeEvent.CandidateFileRevisionApproved(productId), 
+                FakeEvent.CandidateProductRevisionUploaded(productId),
+                FakeEvent.CandidateProductRevisionApproved(productId), 
                 FakeEvent.ProductLocked(productId)
             );
         
@@ -55,8 +55,8 @@ public class ProductLockTests(PostgresTestContainerFixture postgresFixture) :Tes
         var product = Product
             .Create(FakeEvent.ProductAdded(productId))
             .ApplyEvents(
-                FakeEvent.CandidateFileRevisionUploaded(productId),
-                FakeEvent.CandidateFileRevisionApproved(productId), 
+                FakeEvent.CandidateProductRevisionUploaded(productId),
+                FakeEvent.CandidateProductRevisionApproved(productId), 
                 FakeEvent.ProductLocked(productId)
             );
         
@@ -76,8 +76,8 @@ public class ProductLockTests(PostgresTestContainerFixture postgresFixture) :Tes
         var product = Product
             .Create(FakeEvent.ProductAdded(productId))
             .ApplyEvents(
-                FakeEvent.CandidateFileRevisionUploaded(productId),
-                FakeEvent.CandidateFileRevisionApproved(productId), 
+                FakeEvent.CandidateProductRevisionUploaded(productId),
+                FakeEvent.CandidateProductRevisionApproved(productId), 
                 FakeEvent.ProductLocked(productId),
                 FakeEvent.ProductUnlocked(productId)
             );

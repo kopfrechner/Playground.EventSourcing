@@ -2,13 +2,13 @@ using Marten.Events.Projections;
 
 namespace Playground.EventSourcing.Aggregates.Projections;
 
-public record CandidateFileRevisionHistoryEntry(
+public record CandidateProductRevisionHistoryEntry(
     Guid ProductId,
     string? FileName,
     string? InternalUniqueFileName,
     string? ChangeLog,
     DateTimeOffset EventTime,
-    FileRevisionApprovalStatus Status,
+    ProductRevisionApprovalStatus Status,
     string? ChangeComment,
     string PerformedBy
 )
@@ -16,49 +16,49 @@ public record CandidateFileRevisionHistoryEntry(
     public Guid Id { get; private set; }
 };
 
-public enum FileRevisionApprovalStatus
+public enum ProductRevisionApprovalStatus
 {
     Pending,
     Approved,
     Declined
 }
 
-public class CandidateFileRevisionHistoryProjection : MultiStreamProjection<CandidateFileRevisionHistoryEntry, Guid>
+public class CandidateProductRevisionHistoryProjection : MultiStreamProjection<CandidateProductRevisionHistoryEntry, Guid>
 {
-    public CandidateFileRevisionHistoryProjection()
+    public CandidateProductRevisionHistoryProjection()
     {
-        Identity<CandidateFileRevisionUploaded>(_ => Guid.NewGuid());
-        Identity<CandidateFileRevisionApproved>(_ => Guid.NewGuid());
-        Identity<CandidateFileRevisionDeclined>(_ => Guid.NewGuid());
+        Identity<CandidateProductRevisionUploaded>(_ => Guid.NewGuid());
+        Identity<CandidateProductRevisionApproved>(_ => Guid.NewGuid());
+        Identity<CandidateProductRevisionDeclined>(_ => Guid.NewGuid());
     }
 
-    public CandidateFileRevisionHistoryEntry Create(CandidateFileRevisionUploaded @event) =>
+    public CandidateProductRevisionHistoryEntry Create(CandidateProductRevisionUploaded @event) =>
         new(@event.ProductId,
             @event.FileName,
             @event.InternalUniqueFileName,
             @event.ChangeLog,
             @event.UploadedAt,
-            FileRevisionApprovalStatus.Pending,
+            ProductRevisionApprovalStatus.Pending,
             null,
             @event.UploadedBy);
 
-    public CandidateFileRevisionHistoryEntry Create(CandidateFileRevisionApproved @event) =>
+    public CandidateProductRevisionHistoryEntry Create(CandidateProductRevisionApproved @event) =>
         new(@event.ProductId,
             @event.FileName,
             @event.InternalUniqueFileName,
             @event.ChangeLog,
             @event.ApprovedAt,
-            FileRevisionApprovalStatus.Approved,
+            ProductRevisionApprovalStatus.Approved,
             @event.ApprovalComment,
             @event.ApprovedBy);
 
-    public CandidateFileRevisionHistoryEntry Create(CandidateFileRevisionDeclined @event) =>
+    public CandidateProductRevisionHistoryEntry Create(CandidateProductRevisionDeclined @event) =>
         new(@event.ProductId,
             FileName: null,
             InternalUniqueFileName: null,
             ChangeLog: null,
             @event.DeclinedAt,
-            FileRevisionApprovalStatus.Declined,
+            ProductRevisionApprovalStatus.Declined,
             @event.DeclinedComment,
             @event.DeclinedBy);
 }

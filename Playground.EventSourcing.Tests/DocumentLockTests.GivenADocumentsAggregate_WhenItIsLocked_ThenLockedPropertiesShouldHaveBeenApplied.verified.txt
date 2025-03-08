@@ -7,7 +7,7 @@
   LockChangedReason: Bedfordshire Avon cross-media Russian Ruble target quantify SCSI Bedfordshire ubiquitous Lodge blue Response multi-byte Rustic synergies scalable Internal Quality Functionality back-end,
   LockedChangedAt: DateTimeOffset_2,
   CurrentVersion: 1,
-  CurrentFileRevision: {
+  CurrentProductRevision: {
     FileName: program_automated_global.geo,
     InternalUniqueFileName: c5d89183-6bac-3ce2-5cf5-3cde341ec07a.geo,
     Revision: 1,

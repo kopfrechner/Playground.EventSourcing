@@ -16,11 +16,11 @@ public static class FakeEvent
             .Generate();
     }
 
-    public static CandidateFileRevisionApproved CandidateFileRevisionApproved(Guid productId)
+    public static CandidateProductRevisionApproved CandidateProductRevisionApproved(Guid productId)
     {
         var fileExt = new Faker().System.FileExt();
-        return new Faker<CandidateFileRevisionApproved>().CustomInstantiator(f =>
-                new CandidateFileRevisionApproved(
+        return new Faker<CandidateProductRevisionApproved>().CustomInstantiator(f =>
+                new CandidateProductRevisionApproved(
                     productId,
                     f.System.FileName(fileExt),
                     $"{f.Random.Guid()}.{fileExt}",
@@ -31,11 +31,11 @@ public static class FakeEvent
             .Generate();
     }
     
-    public static CandidateFileRevisionUploaded CandidateFileRevisionUploaded(Guid productId)
+    public static CandidateProductRevisionUploaded CandidateProductRevisionUploaded(Guid productId)
     {
         var fileExt = new Faker().System.FileExt();
-        return new Faker<CandidateFileRevisionUploaded>().CustomInstantiator(f =>
-                new CandidateFileRevisionUploaded(
+        return new Faker<CandidateProductRevisionUploaded>().CustomInstantiator(f =>
+                new CandidateProductRevisionUploaded(
                     productId,
                     f.System.FileName(fileExt),
                     $"{f.Random.Guid()}.{fileExt}",
@@ -45,10 +45,10 @@ public static class FakeEvent
             .Generate();
     }
     
-    public static CandidateFileRevisionDeclined CandidateFileRevisionDeclined(Guid productId)
+    public static CandidateProductRevisionDeclined CandidateProductRevisionDeclined(Guid productId)
     {
-        return new Faker<CandidateFileRevisionDeclined>().CustomInstantiator(f =>
-                new CandidateFileRevisionDeclined(
+        return new Faker<CandidateProductRevisionDeclined>().CustomInstantiator(f =>
+                new CandidateProductRevisionDeclined(
                     productId,
                     f.Random.Words(20),
                     DateTimeOffset.Now,

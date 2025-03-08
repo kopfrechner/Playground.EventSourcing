@@ -5,7 +5,7 @@
   OngoingApprovalProcess: false,
   IsLocked: false,
   CurrentVersion: 3,
-  CurrentFileRevision: {
+  CurrentProductRevision: {
     FileName: quality_functionality_back_end.fly,
     InternalUniqueFileName: 70b886a9-a6bc-3275-c789-840bb6623865.fly,
     Revision: 3,

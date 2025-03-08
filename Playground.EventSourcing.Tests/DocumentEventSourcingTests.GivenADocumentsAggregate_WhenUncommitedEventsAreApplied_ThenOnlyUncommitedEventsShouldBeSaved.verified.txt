@@ -5,7 +5,7 @@
   OngoingApprovalProcess: false,
   IsLocked: false,
   CurrentVersion: 2,
-  CurrentFileRevision: {
+  CurrentProductRevision: {
     FileName: trail_xml_focus_group.sis,
     InternalUniqueFileName: 95e3b63f-e4dc-10cd-fdfd-dd3f68e7f717.sis,
     Revision: 2,

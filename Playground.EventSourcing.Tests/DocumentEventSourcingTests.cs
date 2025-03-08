@@ -17,12 +17,12 @@ public class ProductEventSourcingTests(PostgresTestContainerFixture postgresFixt
 
         session.Events.StartStream<Product>(productId,
             FakeEvent.ProductAdded(productId),
-            FakeEvent.CandidateFileRevisionUploaded(productId),
-            FakeEvent.CandidateFileRevisionApproved(productId),
-            FakeEvent.CandidateFileRevisionUploaded(productId),
-            FakeEvent.CandidateFileRevisionApproved(productId),
-            FakeEvent.CandidateFileRevisionUploaded(productId),
-            FakeEvent.CandidateFileRevisionApproved(productId)
+            FakeEvent.CandidateProductRevisionUploaded(productId),
+            FakeEvent.CandidateProductRevisionApproved(productId),
+            FakeEvent.CandidateProductRevisionUploaded(productId),
+            FakeEvent.CandidateProductRevisionApproved(productId),
+            FakeEvent.CandidateProductRevisionUploaded(productId),
+            FakeEvent.CandidateProductRevisionApproved(productId)
         );
         await session.SaveChangesAsync();
 
@@ -34,7 +34,7 @@ public class ProductEventSourcingTests(PostgresTestContainerFixture postgresFixt
     }
 
     [Fact]
-    public async Task GivenANewCandidateFileRevision_WhenProjectionIsAsked_ThenItShouldShowTheCandidate()
+    public async Task GivenANewCandidateProductRevision_WhenProjectionIsAsked_ThenItShouldShowTheCandidate()
     {
         // Arrange
         await using var session = NewSession();
@@ -42,23 +42,23 @@ public class ProductEventSourcingTests(PostgresTestContainerFixture postgresFixt
 
         session.Events.StartStream<Product>(productId,
             FakeEvent.ProductAdded(productId),
-            FakeEvent.CandidateFileRevisionUploaded(productId),
-            FakeEvent.CandidateFileRevisionDeclined(productId),
-            FakeEvent.CandidateFileRevisionUploaded(productId),
-            FakeEvent.CandidateFileRevisionApproved(productId),
-            FakeEvent.CandidateFileRevisionUploaded(productId)
+            FakeEvent.CandidateProductRevisionUploaded(productId),
+            FakeEvent.CandidateProductRevisionDeclined(productId),
+            FakeEvent.CandidateProductRevisionUploaded(productId),
+            FakeEvent.CandidateProductRevisionApproved(productId),
+            FakeEvent.CandidateProductRevisionUploaded(productId)
         );
         await session.SaveChangesAsync();
 
         // Act
-        var candidateFileRevision = await session.LoadAsync<CandidateFileRevisionState>(productId);
+        var candidateProductRevision = await session.LoadAsync<CandidateProductRevisionState>(productId);
 
         // Assert
-        await Verify(candidateFileRevision);
+        await Verify(candidateProductRevision);
     }
 
     [Fact]
-    public async Task GivenADeclinedFileRevision_WhenProjectionIsAsked_ThenItShouldReturnNull()
+    public async Task GivenADeclinedProductRevision_WhenProjectionIsAsked_ThenItShouldReturnNull()
     {
         // Arrange
         await using var session = NewSession();
@@ -66,16 +66,16 @@ public class ProductEventSourcingTests(PostgresTestContainerFixture postgresFixt
 
         session.Events.StartStream<Product>(productId,
             FakeEvent.ProductAdded(productId),
-            FakeEvent.CandidateFileRevisionUploaded(productId),
-            FakeEvent.CandidateFileRevisionDeclined(productId)
+            FakeEvent.CandidateProductRevisionUploaded(productId),
+            FakeEvent.CandidateProductRevisionDeclined(productId)
         );
         await session.SaveChangesAsync();
 
         // Act
-        var candidateFileRevision = await session.LoadAsync<CandidateFileRevisionState>(productId);
+        var candidateProductRevision = await session.LoadAsync<CandidateProductRevisionState>(productId);
 
         // Assert
-        candidateFileRevision.ShouldBeNull();
+        candidateProductRevision.ShouldBeNull();
     }
 
     [Fact]
@@ -87,21 +87,21 @@ public class ProductEventSourcingTests(PostgresTestContainerFixture postgresFixt
         var productId1 = Guid.NewGuid();
         session.Events.StartStream(productId1,
             FakeEvent.ProductAdded(productId1),
-            FakeEvent.CandidateFileRevisionUploaded(productId1),
-            FakeEvent.CandidateFileRevisionApproved(productId1)
+            FakeEvent.CandidateProductRevisionUploaded(productId1),
+            FakeEvent.CandidateProductRevisionApproved(productId1)
         );
 
         var productId2 = Guid.NewGuid();
         session.Events.Append(productId2,
             FakeEvent.ProductAdded(productId2),
-            FakeEvent.CandidateFileRevisionUploaded(productId2),
-            FakeEvent.CandidateFileRevisionDeclined(productId2)
+            FakeEvent.CandidateProductRevisionUploaded(productId2),
+            FakeEvent.CandidateProductRevisionDeclined(productId2)
         );
 
         await session.SaveChangesAsync();
 
         // Act
-        var history = await session.Query<CandidateFileRevisionHistoryEntry>()
+        var history = await session.Query<CandidateProductRevisionHistoryEntry>()
             .OrderBy(x => x.EventTime)
             .ToListAsync();
 
@@ -119,8 +119,8 @@ public class ProductEventSourcingTests(PostgresTestContainerFixture postgresFixt
         var productId = Guid.NewGuid();
         session.Events.Append(productId,
             FakeEvent.ProductAdded(productId),
-            FakeEvent.CandidateFileRevisionUploaded(productId),
-            FakeEvent.CandidateFileRevisionApproved(productId)
+            FakeEvent.CandidateProductRevisionUploaded(productId),
+            FakeEvent.CandidateProductRevisionApproved(productId)
         );
         await session.SaveChangesAsync();
 
@@ -130,10 +130,10 @@ public class ProductEventSourcingTests(PostgresTestContainerFixture postgresFixt
 
         // Add uncommited events via the aggregate
         product.ApplyEvents(
-            FakeEvent.CandidateFileRevisionUploaded(productId),
-            FakeEvent.CandidateFileRevisionDeclined(productId),
-            FakeEvent.CandidateFileRevisionUploaded(productId),
-            FakeEvent.CandidateFileRevisionApproved(productId));
+            FakeEvent.CandidateProductRevisionUploaded(productId),
+            FakeEvent.CandidateProductRevisionDeclined(productId),
+            FakeEvent.CandidateProductRevisionUploaded(productId),
+            FakeEvent.CandidateProductRevisionApproved(productId));
 
         // Act
         session.Events.AppendUncommitedEventsAndClear(product);

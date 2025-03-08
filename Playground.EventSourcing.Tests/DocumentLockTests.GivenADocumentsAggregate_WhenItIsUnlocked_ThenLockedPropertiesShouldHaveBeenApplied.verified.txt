@@ -7,7 +7,7 @@
   LockChangedReason: Rubber Berkshire East Caribbean Dollar compressing navigate methodologies Isle Fresh bandwidth e-business monetize Fantastic Concrete Ball Global fuchsia Berkshire hybrid Plastic Solomon Islands Dollar Jamaican Dollar Buckinghamshire,
   LockedChangedAt: DateTimeOffset_2,
   CurrentVersion: 1,
-  CurrentFileRevision: {
+  CurrentProductRevision: {
     FileName: global_markets.uu,
     InternalUniqueFileName: 0ebce08e-a61a-dbaa-1782-075bba5a87c9.uu,
     Revision: 1,

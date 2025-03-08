@@ -2,18 +2,18 @@ using Marten.Events.Aggregation;
 
 namespace Playground.EventSourcing.Aggregates.Projections;
 
-public record CandidateFileRevisionState(
+public record CandidateProductRevisionState(
     Guid Id,
     string FileName,
     string InternalUniqueFileName,
     DateTimeOffset UploadedAt,
     string UploadedBy);
 
-public class CandidateFileRevisionProjection : SingleStreamProjection<CandidateFileRevisionState>
+public class CandidateProductRevisionProjection : SingleStreamProjection<CandidateProductRevisionState>
 {
-    public static CandidateFileRevisionState Create(CandidateFileRevisionUploaded @event)
+    public static CandidateProductRevisionState Create(CandidateProductRevisionUploaded @event)
     {
-        return new CandidateFileRevisionState(
+        return new CandidateProductRevisionState(
             @event.ProductId,
             @event.FileName,
             @event.InternalUniqueFileName,
@@ -21,12 +21,12 @@ public class CandidateFileRevisionProjection : SingleStreamProjection<CandidateF
             @event.UploadedBy);
     }
 
-    public CandidateFileRevisionState Apply(CandidateFileRevisionState state, CandidateFileRevisionUploaded @event)
+    public CandidateProductRevisionState Apply(CandidateProductRevisionState state, CandidateProductRevisionUploaded @event)
     {
         return Create(@event);
     }
 
-    public CandidateFileRevisionState Apply(CandidateFileRevisionState state, CandidateFileRevisionApproved _) => null;
+    public CandidateProductRevisionState Apply(CandidateProductRevisionState state, CandidateProductRevisionApproved _) => null;
 
-    public CandidateFileRevisionState Apply(CandidateFileRevisionState state, CandidateFileRevisionDeclined _) => null;
+    public CandidateProductRevisionState Apply(CandidateProductRevisionState state, CandidateProductRevisionDeclined _) => null;
 }
