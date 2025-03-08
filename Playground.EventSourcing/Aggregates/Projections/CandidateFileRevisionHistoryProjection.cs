@@ -3,7 +3,7 @@ using Marten.Events.Projections;
 namespace Playground.EventSourcing.Aggregates.Projections;
 
 public record CandidateFileRevisionHistoryEntry(
-    Guid DocumentId,
+    Guid ProductId,
     string? FileName,
     string? InternalUniqueFileName,
     string? ChangeLog,
@@ -33,7 +33,7 @@ public class CandidateFileRevisionHistoryProjection : MultiStreamProjection<Cand
     }
 
     public CandidateFileRevisionHistoryEntry Create(CandidateFileRevisionUploaded @event) =>
-        new(@event.DocumentId,
+        new(@event.ProductId,
             @event.FileName,
             @event.InternalUniqueFileName,
             @event.ChangeLog,
@@ -43,7 +43,7 @@ public class CandidateFileRevisionHistoryProjection : MultiStreamProjection<Cand
             @event.UploadedBy);
 
     public CandidateFileRevisionHistoryEntry Create(CandidateFileRevisionApproved @event) =>
-        new(@event.DocumentId,
+        new(@event.ProductId,
             @event.FileName,
             @event.InternalUniqueFileName,
             @event.ChangeLog,
@@ -53,7 +53,7 @@ public class CandidateFileRevisionHistoryProjection : MultiStreamProjection<Cand
             @event.ApprovedBy);
 
     public CandidateFileRevisionHistoryEntry Create(CandidateFileRevisionDeclined @event) =>
-        new(@event.DocumentId,
+        new(@event.ProductId,
             FileName: null,
             InternalUniqueFileName: null,
             ChangeLog: null,

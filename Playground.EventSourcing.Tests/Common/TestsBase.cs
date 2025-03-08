@@ -12,7 +12,7 @@ public abstract class TestsBase(PostgresTestContainerFixture postgresFixture) : 
     public async Task InitializeAsync()
     {
         var connectionString = postgresFixture.Container.GetConnectionString();
-        _store = EventStoreSetup.SetupDocumentStore(connectionString);
+        _store = EventStoreSetup.SetupProductStore(connectionString);
         await _store.Advanced.Clean.CompletelyRemoveAllAsync();
         await _store.Storage.ApplyAllConfiguredChangesToDatabaseAsync();
         

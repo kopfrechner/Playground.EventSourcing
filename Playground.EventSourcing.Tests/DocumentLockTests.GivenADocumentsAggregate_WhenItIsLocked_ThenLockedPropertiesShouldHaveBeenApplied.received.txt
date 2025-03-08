@@ -28,7 +28,7 @@
   Id: Guid_1,
   UncommittedEvents: [
     {
-      DocumentId: Guid_1,
+      ProductId: Guid_1,
       FileName: customer_24_7.hjson,
       InternalUniqueFileName: 1c137ba8-be4f-7cae-063a-c38ee0bc0e1a.hjson,
       ChangeLog: Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support,
@@ -36,7 +36,7 @@
       UploadedBy: Chasity Reynolds
     },
     {
-      DocumentId: Guid_1,
+      ProductId: Guid_1,
       FileName: program_automated_global.geo,
       InternalUniqueFileName: c5d89183-6bac-3ce2-5cf5-3cde341ec07a.geo,
       ChangeLog: New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016,
@@ -45,7 +45,7 @@
       ApprovedBy: Rudy Kris
     },
     {
-      DocumentId: Guid_1,
+      ProductId: Guid_1,
       LockReason: Bedfordshire Avon cross-media Russian Ruble target quantify SCSI Bedfordshire ubiquitous Lodge blue Response multi-byte Rustic synergies scalable Internal Quality Functionality back-end,
       LockedAt: DateTimeOffset_2,
       LockedBy: Mertie Wolf

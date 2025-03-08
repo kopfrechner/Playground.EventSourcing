@@ -4,86 +4,86 @@ using Shouldly;
 
 namespace Playground.EventSourcing.Tests;
 
-public class DocumentLockTests(PostgresTestContainerFixture postgresFixture) :TestsBase(postgresFixture)
+public class ProductLockTests(PostgresTestContainerFixture postgresFixture) :TestsBase(postgresFixture)
 {
     [Fact]
-    public async Task GivenADocumentsAggregate_WhenItIsLocked_ThenLockedPropertiesShouldHaveBeenApplied()
+    public async Task GivenAProductsAggregate_WhenItIsLocked_ThenLockedPropertiesShouldHaveBeenApplied()
     {
         // Arrange
         await using var session = NewSession();
-        var documentId = Guid.NewGuid();
-        var document = Document
-            .Create(FakeEvent.DocumentAdded(documentId))
+        var productId = Guid.NewGuid();
+        var product = Product
+            .Create(FakeEvent.ProductAdded(productId))
             .ApplyEvents(
-                FakeEvent.CandidateFileRevisionUploaded(documentId),
-                FakeEvent.CandidateFileRevisionApproved(documentId));
+                FakeEvent.CandidateFileRevisionUploaded(productId),
+                FakeEvent.CandidateFileRevisionApproved(productId));
         
         // Act
-        document = document.ApplyEvent(FakeEvent.DocumentLocked(documentId));
+        product = product.ApplyEvent(FakeEvent.ProductLocked(productId));
         
         // Assert
-        await Verify(document);
+        await Verify(product);
     }
     
     [Fact]
-    public async Task GivenADocumentsAggregate_WhenItIsUnlocked_ThenLockedPropertiesShouldHaveBeenApplied()
+    public async Task GivenAProductsAggregate_WhenItIsUnlocked_ThenLockedPropertiesShouldHaveBeenApplied()
     {
         // Arrange
         await using var session = NewSession();
-        var documentId = Guid.NewGuid();
-        var document = Document
-            .Create(FakeEvent.DocumentAdded(documentId))
+        var productId = Guid.NewGuid();
+        var product = Product
+            .Create(FakeEvent.ProductAdded(productId))
             .ApplyEvents(
-                FakeEvent.CandidateFileRevisionUploaded(documentId),
-                FakeEvent.CandidateFileRevisionApproved(documentId), 
-                FakeEvent.DocumentLocked(documentId)
+                FakeEvent.CandidateFileRevisionUploaded(productId),
+                FakeEvent.CandidateFileRevisionApproved(productId), 
+                FakeEvent.ProductLocked(productId)
             );
         
         // Act
-        document = document.ApplyEvent(FakeEvent.DocumentUnlocked(documentId));
+        product = product.ApplyEvent(FakeEvent.ProductUnlocked(productId));
         
         // Assert
-        await Verify(document);
+        await Verify(product);
     }
     
     [Fact]
-    public async Task GivenADocumentsAggregate_WhenItIsLockedTwice_ThenShouldThrowException()
+    public async Task GivenAProductsAggregate_WhenItIsLockedTwice_ThenShouldThrowException()
     {
         // Arrange
         await using var session = NewSession();
-        var documentId = Guid.NewGuid();
-        var document = Document
-            .Create(FakeEvent.DocumentAdded(documentId))
+        var productId = Guid.NewGuid();
+        var product = Product
+            .Create(FakeEvent.ProductAdded(productId))
             .ApplyEvents(
-                FakeEvent.CandidateFileRevisionUploaded(documentId),
-                FakeEvent.CandidateFileRevisionApproved(documentId), 
-                FakeEvent.DocumentLocked(documentId)
+                FakeEvent.CandidateFileRevisionUploaded(productId),
+                FakeEvent.CandidateFileRevisionApproved(productId), 
+                FakeEvent.ProductLocked(productId)
             );
         
         // Act
-        var act = () => document = document.ApplyEvent(FakeEvent.DocumentLocked(documentId));
+        var act = () => product = product.ApplyEvent(FakeEvent.ProductLocked(productId));
         
         // Assert
         act.ShouldThrow<InvalidOperationException>();
     }
     
     [Fact]
-    public async Task GivenADocumentsAggregate_WhenItIsUnlockedTwice_ThenShouldThrowException()
+    public async Task GivenAProductsAggregate_WhenItIsUnlockedTwice_ThenShouldThrowException()
     {
         // Arrange
         await using var session = NewSession();
-        var documentId = Guid.NewGuid();
-        var document = Document
-            .Create(FakeEvent.DocumentAdded(documentId))
+        var productId = Guid.NewGuid();
+        var product = Product
+            .Create(FakeEvent.ProductAdded(productId))
             .ApplyEvents(
-                FakeEvent.CandidateFileRevisionUploaded(documentId),
-                FakeEvent.CandidateFileRevisionApproved(documentId), 
-                FakeEvent.DocumentLocked(documentId),
-                FakeEvent.DocumentUnlocked(documentId)
+                FakeEvent.CandidateFileRevisionUploaded(productId),
+                FakeEvent.CandidateFileRevisionApproved(productId), 
+                FakeEvent.ProductLocked(productId),
+                FakeEvent.ProductUnlocked(productId)
             );
         
         // Act
-        var act = () => document = document.ApplyEvent(FakeEvent.DocumentUnlocked(documentId));
+        var act = () => product = product.ApplyEvent(FakeEvent.ProductUnlocked(productId));
         
         // Assert
         act.ShouldThrow<InvalidOperationException>();

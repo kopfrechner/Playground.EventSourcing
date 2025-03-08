@@ -10,7 +10,7 @@ namespace Playground.EventSourcing;
 
 public static class EventStoreSetup
 {
-    public static DocumentStore SetupDocumentStore(string connectionString)
+    public static DocumentStore SetupProductStore(string connectionString)
     {
         return DocumentStore.For(options =>
         {

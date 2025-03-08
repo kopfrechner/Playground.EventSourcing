@@ -28,7 +28,7 @@
   Id: Guid_1,
   UncommittedEvents: [
     {
-      DocumentId: Guid_1,
+      ProductId: Guid_1,
       FileName: facilitate_strategist_best_of_breed.pwn,
       InternalUniqueFileName: 5f6130c1-ec27-01fe-20ce-c877e19aa87b.pwn,
       ChangeLog: The Football Is Good For Training And Recreational Purposes,
@@ -36,7 +36,7 @@
       UploadedBy: Elian Wintheiser
     },
     {
-      DocumentId: Guid_1,
+      ProductId: Guid_1,
       FileName: global_markets.uu,
       InternalUniqueFileName: 0ebce08e-a61a-dbaa-1782-075bba5a87c9.uu,
       ChangeLog: The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design,
@@ -45,13 +45,13 @@
       ApprovedBy: Antone Schaefer
     },
     {
-      DocumentId: Guid_1,
+      ProductId: Guid_1,
       LockReason: Corporate Handmade Rubber Table connect withdrawal Generic Metal Computer Awesome Steel Fish Inverse withdrawal Swedish Krona Generic Rubber Shoes array Executive Gorgeous Frozen Mouse Cotton forecast Incredible Concrete Gloves Springs protocol strategy XML,
       LockedAt: DateTimeOffset_5,
       LockedBy: Reanna Okuneva
     },
     {
-      DocumentId: Guid_1,
+      ProductId: Guid_1,
       UnlockReason: Rubber Berkshire East Caribbean Dollar compressing navigate methodologies Isle Fresh bandwidth e-business monetize Fantastic Concrete Ball Global fuchsia Berkshire hybrid Plastic Solomon Islands Dollar Jamaican Dollar Buckinghamshire,
       UnlockedAt: DateTimeOffset_2,
       UnlockedBy: Kolby Thompson

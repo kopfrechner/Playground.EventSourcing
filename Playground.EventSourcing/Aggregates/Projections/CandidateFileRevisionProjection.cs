@@ -14,7 +14,7 @@ public class CandidateFileRevisionProjection : SingleStreamProjection<CandidateF
     public static CandidateFileRevisionState Create(CandidateFileRevisionUploaded @event)
     {
         return new CandidateFileRevisionState(
-            @event.DocumentId,
+            @event.ProductId,
             @event.FileName,
             @event.InternalUniqueFileName,
             @event.UploadedAt,

@@ -5,23 +5,23 @@ namespace Playground.EventSourcing.Tests;
 
 public static class FakeEvent
 {
-    public static DocumentAdded DocumentAdded(Guid documentId)
+    public static ProductAdded ProductAdded(Guid productId)
     {
-        return new Faker<DocumentAdded>().CustomInstantiator(f =>
-                new DocumentAdded(
-                    documentId,
+        return new Faker<ProductAdded>().CustomInstantiator(f =>
+                new ProductAdded(
+                    productId,
                     f.System.FileName(f.System.CommonFileExt()),
                     DateTimeOffset.Now,
                     f.Name.FullName()))
             .Generate();
     }
 
-    public static CandidateFileRevisionApproved CandidateFileRevisionApproved(Guid documentId)
+    public static CandidateFileRevisionApproved CandidateFileRevisionApproved(Guid productId)
     {
         var fileExt = new Faker().System.FileExt();
         return new Faker<CandidateFileRevisionApproved>().CustomInstantiator(f =>
                 new CandidateFileRevisionApproved(
-                    documentId,
+                    productId,
                     f.System.FileName(fileExt),
                     $"{f.Random.Guid()}.{fileExt}",
                     f.Commerce.ProductDescription(),
@@ -31,12 +31,12 @@ public static class FakeEvent
             .Generate();
     }
     
-    public static CandidateFileRevisionUploaded CandidateFileRevisionUploaded(Guid documentId)
+    public static CandidateFileRevisionUploaded CandidateFileRevisionUploaded(Guid productId)
     {
         var fileExt = new Faker().System.FileExt();
         return new Faker<CandidateFileRevisionUploaded>().CustomInstantiator(f =>
                 new CandidateFileRevisionUploaded(
-                    documentId,
+                    productId,
                     f.System.FileName(fileExt),
                     $"{f.Random.Guid()}.{fileExt}",
                     f.Commerce.ProductDescription(),
@@ -45,33 +45,33 @@ public static class FakeEvent
             .Generate();
     }
     
-    public static CandidateFileRevisionDeclined CandidateFileRevisionDeclined(Guid documentId)
+    public static CandidateFileRevisionDeclined CandidateFileRevisionDeclined(Guid productId)
     {
         return new Faker<CandidateFileRevisionDeclined>().CustomInstantiator(f =>
                 new CandidateFileRevisionDeclined(
-                    documentId,
+                    productId,
                     f.Random.Words(20),
                     DateTimeOffset.Now,
                     f.Name.FullName()))
             .Generate();
     }
     
-    public static DocumentLocked DocumentLocked(Guid documentId)
+    public static ProductLocked ProductLocked(Guid productId)
     {
-        return new Faker<DocumentLocked>().CustomInstantiator(f =>
-                new DocumentLocked(
-                    documentId,
+        return new Faker<ProductLocked>().CustomInstantiator(f =>
+                new ProductLocked(
+                    productId,
                     f.Random.Words(20),
                     DateTimeOffset.Now,
                     f.Name.FullName()))
             .Generate();
     }
     
-    public static DocumentUnlocked DocumentUnlocked(Guid documentId)
+    public static ProductUnlocked ProductUnlocked(Guid productId)
     {
-        return new Faker<DocumentUnlocked>().CustomInstantiator(f =>
-                new DocumentUnlocked(
-                    documentId,
+        return new Faker<ProductUnlocked>().CustomInstantiator(f =>
+                new ProductUnlocked(
+                    productId,
                     f.Random.Words(20),
                     DateTimeOffset.Now,
                     f.Name.FullName()))

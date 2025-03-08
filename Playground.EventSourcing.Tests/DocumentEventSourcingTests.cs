@@ -6,31 +6,31 @@ using Shouldly;
 
 namespace Playground.EventSourcing.Tests;
 
-public class DocumentEventSourcingTests(PostgresTestContainerFixture postgresFixture) : TestsBase(postgresFixture)
+public class ProductEventSourcingTests(PostgresTestContainerFixture postgresFixture) : TestsBase(postgresFixture)
 {
     [Fact]
-    public async Task GivenSomeDocumentEvents_WhenTheAggregateIsBuilt_ThenItShouldBeCorrect()
+    public async Task GivenSomeProductEvents_WhenTheAggregateIsBuilt_ThenItShouldBeCorrect()
     {
         // Arrange
         await using var session = NewSession();
-        var documentId = Guid.NewGuid();
+        var productId = Guid.NewGuid();
 
-        session.Events.StartStream<Document>(documentId,
-            FakeEvent.DocumentAdded(documentId),
-            FakeEvent.CandidateFileRevisionUploaded(documentId),
-            FakeEvent.CandidateFileRevisionApproved(documentId),
-            FakeEvent.CandidateFileRevisionUploaded(documentId),
-            FakeEvent.CandidateFileRevisionApproved(documentId),
-            FakeEvent.CandidateFileRevisionUploaded(documentId),
-            FakeEvent.CandidateFileRevisionApproved(documentId)
+        session.Events.StartStream<Product>(productId,
+            FakeEvent.ProductAdded(productId),
+            FakeEvent.CandidateFileRevisionUploaded(productId),
+            FakeEvent.CandidateFileRevisionApproved(productId),
+            FakeEvent.CandidateFileRevisionUploaded(productId),
+            FakeEvent.CandidateFileRevisionApproved(productId),
+            FakeEvent.CandidateFileRevisionUploaded(productId),
+            FakeEvent.CandidateFileRevisionApproved(productId)
         );
         await session.SaveChangesAsync();
 
         // Act
-        var documentAggregate = await session.Events.AggregateStreamAsync<Document>(documentId);
+        var productAggregate = await session.Events.AggregateStreamAsync<Product>(productId);
 
         // Assert
-        await Verify(documentAggregate);
+        await Verify(productAggregate);
     }
 
     [Fact]
@@ -38,20 +38,20 @@ public class DocumentEventSourcingTests(PostgresTestContainerFixture postgresFix
     {
         // Arrange
         await using var session = NewSession();
-        var documentId = Guid.NewGuid();
+        var productId = Guid.NewGuid();
 
-        session.Events.StartStream<Document>(documentId,
-            FakeEvent.DocumentAdded(documentId),
-            FakeEvent.CandidateFileRevisionUploaded(documentId),
-            FakeEvent.CandidateFileRevisionDeclined(documentId),
-            FakeEvent.CandidateFileRevisionUploaded(documentId),
-            FakeEvent.CandidateFileRevisionApproved(documentId),
-            FakeEvent.CandidateFileRevisionUploaded(documentId)
+        session.Events.StartStream<Product>(productId,
+            FakeEvent.ProductAdded(productId),
+            FakeEvent.CandidateFileRevisionUploaded(productId),
+            FakeEvent.CandidateFileRevisionDeclined(productId),
+            FakeEvent.CandidateFileRevisionUploaded(productId),
+            FakeEvent.CandidateFileRevisionApproved(productId),
+            FakeEvent.CandidateFileRevisionUploaded(productId)
         );
         await session.SaveChangesAsync();
 
         // Act
-        var candidateFileRevision = await session.LoadAsync<CandidateFileRevisionState>(documentId);
+        var candidateFileRevision = await session.LoadAsync<CandidateFileRevisionState>(productId);
 
         // Assert
         await Verify(candidateFileRevision);
@@ -62,40 +62,40 @@ public class DocumentEventSourcingTests(PostgresTestContainerFixture postgresFix
     {
         // Arrange
         await using var session = NewSession();
-        var documentId = Guid.NewGuid();
+        var productId = Guid.NewGuid();
 
-        session.Events.StartStream<Document>(documentId,
-            FakeEvent.DocumentAdded(documentId),
-            FakeEvent.CandidateFileRevisionUploaded(documentId),
-            FakeEvent.CandidateFileRevisionDeclined(documentId)
+        session.Events.StartStream<Product>(productId,
+            FakeEvent.ProductAdded(productId),
+            FakeEvent.CandidateFileRevisionUploaded(productId),
+            FakeEvent.CandidateFileRevisionDeclined(productId)
         );
         await session.SaveChangesAsync();
 
         // Act
-        var candidateFileRevision = await session.LoadAsync<CandidateFileRevisionState>(documentId);
+        var candidateFileRevision = await session.LoadAsync<CandidateFileRevisionState>(productId);
 
         // Assert
         candidateFileRevision.ShouldBeNull();
     }
 
     [Fact]
-    public async Task GivenAMultipleEventsOverDocuments_WhenQueryingHistory_ThenItShouldReturnAllEvents()
+    public async Task GivenAMultipleEventsOverProducts_WhenQueryingHistory_ThenItShouldReturnAllEvents()
     {
         // Arrange
         await using var session = NewSession();
 
-        var documentId1 = Guid.NewGuid();
-        session.Events.StartStream(documentId1,
-            FakeEvent.DocumentAdded(documentId1),
-            FakeEvent.CandidateFileRevisionUploaded(documentId1),
-            FakeEvent.CandidateFileRevisionApproved(documentId1)
+        var productId1 = Guid.NewGuid();
+        session.Events.StartStream(productId1,
+            FakeEvent.ProductAdded(productId1),
+            FakeEvent.CandidateFileRevisionUploaded(productId1),
+            FakeEvent.CandidateFileRevisionApproved(productId1)
         );
 
-        var documentId2 = Guid.NewGuid();
-        session.Events.Append(documentId2,
-            FakeEvent.DocumentAdded(documentId2),
-            FakeEvent.CandidateFileRevisionUploaded(documentId2),
-            FakeEvent.CandidateFileRevisionDeclined(documentId2)
+        var productId2 = Guid.NewGuid();
+        session.Events.Append(productId2,
+            FakeEvent.ProductAdded(productId2),
+            FakeEvent.CandidateFileRevisionUploaded(productId2),
+            FakeEvent.CandidateFileRevisionDeclined(productId2)
         );
 
         await session.SaveChangesAsync();
@@ -110,37 +110,37 @@ public class DocumentEventSourcingTests(PostgresTestContainerFixture postgresFix
     }
 
     [Fact]
-    public async Task GivenADocumentsAggregate_WhenUncommitedEventsAreApplied_ThenOnlyUncommitedEventsShouldBeSaved()
+    public async Task GivenAProductsAggregate_WhenUncommitedEventsAreApplied_ThenOnlyUncommitedEventsShouldBeSaved()
     {
         // Arrange
         await using var session = NewSession();
 
         // Prepare some events
-        var documentId = Guid.NewGuid();
-        session.Events.Append(documentId,
-            FakeEvent.DocumentAdded(documentId),
-            FakeEvent.CandidateFileRevisionUploaded(documentId),
-            FakeEvent.CandidateFileRevisionApproved(documentId)
+        var productId = Guid.NewGuid();
+        session.Events.Append(productId,
+            FakeEvent.ProductAdded(productId),
+            FakeEvent.CandidateFileRevisionUploaded(productId),
+            FakeEvent.CandidateFileRevisionApproved(productId)
         );
         await session.SaveChangesAsync();
 
         // Load saved Aggregate
-        var document = await session.Events.AggregateStreamAsync<Document>(documentId);
-        document.ShouldNotBeNull();
+        var product = await session.Events.AggregateStreamAsync<Product>(productId);
+        product.ShouldNotBeNull();
 
         // Add uncommited events via the aggregate
-        document.ApplyEvents(
-            FakeEvent.CandidateFileRevisionUploaded(documentId),
-            FakeEvent.CandidateFileRevisionDeclined(documentId),
-            FakeEvent.CandidateFileRevisionUploaded(documentId),
-            FakeEvent.CandidateFileRevisionApproved(documentId));
+        product.ApplyEvents(
+            FakeEvent.CandidateFileRevisionUploaded(productId),
+            FakeEvent.CandidateFileRevisionDeclined(productId),
+            FakeEvent.CandidateFileRevisionUploaded(productId),
+            FakeEvent.CandidateFileRevisionApproved(productId));
 
         // Act
-        session.Events.AppendUncommitedEventsAndClear(document);
+        session.Events.AppendUncommitedEventsAndClear(product);
         await session.SaveChangesAsync();
 
         // Assert
-        var reloadedDocument = await session.Events.AggregateStreamAsync<Document>(documentId);
-        await Verify(reloadedDocument);
+        var reloadedProduct = await session.Events.AggregateStreamAsync<Product>(productId);
+        await Verify(reloadedProduct);
     }
 }
