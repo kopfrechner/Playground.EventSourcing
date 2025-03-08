@@ -1,67 +1,59 @@
 ﻿using Marten;
 using Microsoft.Extensions.Configuration;
+using Playground.EventSourcing;
 using Weasel.Core;
 
+// Load configuration from user secrets
+var connectionString = ConnectionStringOrThrow();
 
-// Define an event
+// Configure Marten
+var store = SetupDocumentStore(connectionString);
 
-public interface IEvent { }
+await using var session = store.LightweightSession();
 
+var orderId = Guid.NewGuid();
 
-public record OrderPlaced(Guid OrderId, string ProductName, int Quantity);
+// Stream starten mit Events
+session.Events.StartStream(orderId,
+    new OrderPlaced(orderId, "Laptop", 2),
+    new OrderShipped(orderId, DateTime.UtcNow),
+    new OrderCompleted(orderId, DateTime.UtcNow.AddHours(1))
+);
+await session.SaveChangesAsync();
 
-class Program
+// Aggregate rekonstruieren
+var events = await session.Events.FetchStreamAsync(orderId);
+var order = new OrderAggregate();
+foreach (var e in events) order.ApplyEvent(e.Data);
+
+Console.WriteLine($"Order: {order.ProductName}, Shipped: {order.ShippedDate}, Completed: {order.IsCompleted}");
+
+static DocumentStore SetupDocumentStore(string connectionString)
 {
-    static async Task Main()
+    return DocumentStore.For(options =>
     {
-        // Load configuration from user secrets
-        var connectionString = ConnectionStringOrThrow();
-
-        // Configure Marten
-        var store = SetupDocumentStore(connectionString);
-
-        await using var session = store.LightweightSession();
-        var orderId = Guid.NewGuid();
+        options.DatabaseSchemaName = "playgound";
+        options.Connection(connectionString);
+        options.AutoCreateSchemaObjects = AutoCreate.CreateOrUpdate;
         
-        // Store an event
-        session.Events.StartStream<OrderPlaced>(orderId, new OrderPlaced(orderId, "Laptop", 1));
-        await session.SaveChangesAsync();
-        
-        // Retrieve and display events
-        var events = await session.Events.FetchStreamAsync(orderId);
-        foreach (var @event in events)
+        var eventTypes = typeof(IEvent).Assembly.GetTypes()
+            .Where(t => typeof(IEvent).IsAssignableFrom(t) && t is { IsClass: true, IsAbstract: false })
+            .ToList();
+
+        foreach (var type in eventTypes)
         {
-            Console.WriteLine(@event.Data);
+            options.Events.AddEventType(type);
         }
-    }
+    });
+}
 
-    private static DocumentStore SetupDocumentStore(string connectionString)
-    {
-        return DocumentStore.For(options =>
-        {
-            options.DatabaseSchemaName = "playgound";
-            options.Connection(connectionString);
-            options.AutoCreateSchemaObjects = AutoCreate.None;
-            
-            var eventTypes = typeof(IEvent).Assembly.GetTypes()
-                .Where(t => typeof(IEvent).IsAssignableFrom(t) && t is { IsClass: true, IsAbstract: false })
-                .ToList();
+static string ConnectionStringOrThrow()
+{
+    var config = new ConfigurationBuilder()
+        .AddUserSecrets<Program>()
+        .Build();
 
-            foreach (var type in eventTypes)
-            {
-                options.Events.AddEventType(type);
-            }
-        });
-    }
-
-    private static string ConnectionStringOrThrow()
-    {
-        var config = new ConfigurationBuilder()
-            .AddUserSecrets<Program>()
-            .Build();
-
-        var connectionString = config["ConnectionStrings:Postgres"]
-                               ?? throw new InvalidOperationException("Database connection string is missing.");
-        return connectionString;
-    }
+    var connectionString = config["ConnectionStrings:Postgres"]
+                           ?? throw new InvalidOperationException("Database connection string is missing.");
+    return connectionString;
 }
