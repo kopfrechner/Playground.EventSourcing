@@ -1,13 +1,10 @@
-﻿using Marten;
-using Microsoft.Extensions.Configuration;
-using Playground.EventSourcing;
-using Weasel.Core;
+﻿using Playground.EventSourcing;
 
 // Load configuration from user secrets
-var connectionString = ConnectionStringOrThrow();
+var connectionString = EventStoreHelper.ConnectionStringOrThrow();
 
 // Configure Marten
-var store = SetupDocumentStore(connectionString);
+var store = EventStoreHelper.SetupDocumentStore(connectionString);
 
 await using var session = store.LightweightSession();
 
@@ -27,33 +24,3 @@ var order = new OrderAggregate();
 foreach (var e in events) order.ApplyEvent(e.Data);
 
 Console.WriteLine($"Order: {order.ProductName}, Shipped: {order.ShippedDate}, Completed: {order.IsCompleted}");
-
-static DocumentStore SetupDocumentStore(string connectionString)
-{
-    return DocumentStore.For(options =>
-    {
-        options.DatabaseSchemaName = "playgound";
-        options.Connection(connectionString);
-        options.AutoCreateSchemaObjects = AutoCreate.CreateOrUpdate;
-        
-        var eventTypes = typeof(IEvent).Assembly.GetTypes()
-            .Where(t => typeof(IEvent).IsAssignableFrom(t) && t is { IsClass: true, IsAbstract: false })
-            .ToList();
-
-        foreach (var type in eventTypes)
-        {
-            options.Events.AddEventType(type);
-        }
-    });
-}
-
-static string ConnectionStringOrThrow()
-{
-    var config = new ConfigurationBuilder()
-        .AddUserSecrets<Program>()
-        .Build();
-
-    var connectionString = config["ConnectionStrings:Postgres"]
-                           ?? throw new InvalidOperationException("Database connection string is missing.");
-    return connectionString;
-}
