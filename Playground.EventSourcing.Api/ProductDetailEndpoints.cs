@@ -5,8 +5,8 @@ using Playground.EventSourcing.Aggregates.Projections;
 
 namespace Playground.EventSourcing.Api;
 
-public record LockProductRequest(string LockReason, DateTimeOffset LockedAt, string LockedBy);
-public record UnlockProductRequest(string UnlockReason, DateTimeOffset UnlockedAt, string UnlockedBy);
+public record LockProductRequest(string LockReason);
+public record UnlockProductRequest(string UnlockReason);
 
 public static class ProductDetailEndpoints
 {
@@ -36,7 +36,7 @@ public static class ProductDetailEndpoints
             .WithOpenApi();
     }
 
-    private static async Task<IResult> LockProduct(IDocumentSession session, Guid productId, [FromBody] LockProductRequest request)
+    private static async Task<IResult> LockProduct(IDocumentSession session, ICurrentUser currentUser, Guid productId, [FromBody] LockProductRequest request)
     {
         var product = await session.Events.AggregateStreamAsync<Product>(productId);
         if (product == null) return Results.NotFound();
@@ -44,15 +44,15 @@ public static class ProductDetailEndpoints
         product.ApplyEvent(new ProductLocked(
             productId,
             request.LockReason,
-            request.LockedAt,
-            request.LockedBy));
+            DateTimeOffset.Now, 
+            currentUser.FullName));
 
         session.Events.AppendAndClearUncommitedEvents(product);
         await session.SaveChangesAsync();
         return Results.Ok();
     }
 
-    private static async Task<IResult> UnlockProduct(IDocumentSession session, Guid productId, [FromBody] UnlockProductRequest request)
+    private static async Task<IResult> UnlockProduct(IDocumentSession session, ICurrentUser currentUser, Guid productId, [FromBody] UnlockProductRequest request)
     {
         var product = await session.Events.AggregateStreamAsync<Product>(productId);
         if (product == null) return Results.NotFound();
@@ -60,8 +60,8 @@ public static class ProductDetailEndpoints
         product.ApplyEvent(new ProductUnlocked(
             productId,
             request.UnlockReason,
-            request.UnlockedAt,
-            request.UnlockedBy));
+            DateTimeOffset.Now, 
+            currentUser.FullName));
 
         session.Events.AppendAndClearUncommitedEvents(product);
         await session.SaveChangesAsync();

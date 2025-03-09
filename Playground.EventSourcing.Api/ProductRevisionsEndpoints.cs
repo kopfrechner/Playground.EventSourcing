@@ -4,9 +4,9 @@ using Playground.EventSourcing.Aggregates;
 
 namespace Playground.EventSourcing.Api;
 
-public record UploadProductRevisionRequest(string Description, string InternalDescription, string ChangeLog, DateTimeOffset UploadedAt, string UploadedBy);
-public record ApproveProductRevisionRequest(string Description, string InternalDescription, string ChangeLog, string ApprovalComment, DateTimeOffset ApprovedAt, string ApprovedBy);
-public record DeclineProductRevisionRequest(string DeclinedComment, DateTimeOffset DeclinedAt, string DeclinedBy);
+public record UploadProductRevisionRequest(string Description, string InternalDescription, string ChangeLog);
+public record ApproveProductRevisionRequest(string Description, string InternalDescription, string ChangeLog, string ApprovalComment);
+public record DeclineProductRevisionRequest(string DeclinedComment);
 
 public static class ProductRevisionsEndpoints
 {
@@ -28,7 +28,7 @@ public static class ProductRevisionsEndpoints
             .WithOpenApi();
     }
 
-    private static async Task<IResult> UploadProductRevision(IDocumentSession session, Guid productId, [FromBody] UploadProductRevisionRequest request)
+    private static async Task<IResult> UploadProductRevision(IDocumentSession session, ICurrentUser currentUser, Guid productId, [FromBody] UploadProductRevisionRequest request)
     {
         var product = await session.Events.AggregateStreamAsync<Product>(productId);
         if (product == null) return Results.NotFound();
@@ -38,15 +38,15 @@ public static class ProductRevisionsEndpoints
             request.Description,
             request.InternalDescription,
             request.ChangeLog,
-            request.UploadedAt,
-            request.UploadedBy));
+            DateTimeOffset.Now, 
+            currentUser.FullName));
         
         session.Events.AppendAndClearUncommitedEvents(product);
         await session.SaveChangesAsync();
         return Results.Ok();
     }
 
-    private static async Task<IResult> ApproveProductRevision(IDocumentSession session, Guid productId, [FromBody] ApproveProductRevisionRequest request)
+    private static async Task<IResult> ApproveProductRevision(IDocumentSession session, ICurrentUser currentUser, Guid productId, [FromBody] ApproveProductRevisionRequest request)
     {
         var product = await session.Events.AggregateStreamAsync<Product>(productId);
         if (product == null) return Results.NotFound();
@@ -57,15 +57,15 @@ public static class ProductRevisionsEndpoints
             request.InternalDescription,
             request.ChangeLog,
             request.ApprovalComment,
-            request.ApprovedAt,
-            request.ApprovedBy));
+            DateTimeOffset.Now, 
+            currentUser.FullName));
 
         session.Events.AppendAndClearUncommitedEvents(product);
         await session.SaveChangesAsync();
         return Results.Ok();
     }
 
-    private static async Task<IResult> DeclineProductRevision(IDocumentSession session, Guid productId, [FromBody] DeclineProductRevisionRequest request)
+    private static async Task<IResult> DeclineProductRevision(IDocumentSession session, ICurrentUser currentUser, Guid productId, [FromBody] DeclineProductRevisionRequest request)
     {
         var product = await session.Events.AggregateStreamAsync<Product>(productId);
         if (product == null) return Results.NotFound();
@@ -73,8 +73,8 @@ public static class ProductRevisionsEndpoints
         product.ApplyEvent(new ProductRevisionDeclined(
             productId,
             request.DeclinedComment,
-            request.DeclinedAt,
-            request.DeclinedBy));
+            DateTimeOffset.Now, 
+            currentUser.FullName));
 
         session.Events.AppendAndClearUncommitedEvents(product);
         await session.SaveChangesAsync();

@@ -5,7 +5,7 @@ using Playground.EventSourcing.Aggregates.Projections;
 
 namespace Playground.EventSourcing.Api;
 
-public record CreateProductRequest(string Alias, DateTimeOffset CreatedAt, string CreatedBy);
+public record CreateProductRequest(string Alias);
 
 public static class ProductEndpoints
 {
@@ -27,10 +27,10 @@ public static class ProductEndpoints
             .WithOpenApi();
     }
 
-    private static async Task<IResult> CreateProduct(IDocumentSession session, [FromBody] CreateProductRequest request)
+    private static async Task<IResult> CreateProduct(IDocumentSession session, ICurrentUser currentUser, [FromBody] CreateProductRequest request)
     {
         var productId = Guid.NewGuid();
-        var product = Product.Create(new ProductAdded(productId, request.Alias, request.CreatedAt, request.CreatedBy));
+        var product = Product.Create(new ProductAdded(productId, request.Alias, DateTimeOffset.Now, currentUser.FullName));
         session.Events.AppendAndClearUncommitedEvents(product);
         await session.SaveChangesAsync();
         return Results.Created($"/{productId}", productId);
