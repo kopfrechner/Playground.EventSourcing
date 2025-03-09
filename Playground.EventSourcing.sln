@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground.EventSourcing", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground.EventSourcing.Tests", "Playground.EventSourcing.Tests\Playground.EventSourcing.Tests.csproj", "{CCE3D9AA-915A-4192-93B4-80282C076EEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground.EventSourcing.Api", "Playground.EventSourcing.Api\Playground.EventSourcing.Api.csproj", "{396D131C-CC19-4664-B573-2069BC32858D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{CCE3D9AA-915A-4192-93B4-80282C076EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCE3D9AA-915A-4192-93B4-80282C076EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCE3D9AA-915A-4192-93B4-80282C076EEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{396D131C-CC19-4664-B573-2069BC32858D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{396D131C-CC19-4664-B573-2069BC32858D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{396D131C-CC19-4664-B573-2069BC32858D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{396D131C-CC19-4664-B573-2069BC32858D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
