@@ -4,7 +4,7 @@ using Playground.EventSourcing.Aggregates.Common;
 using Playground.EventSourcing.Aggregates.Projections;
 using Weasel.Core;
 
-namespace Playground.EventSourcing;
+namespace Playground.EventSourcing.Tests.Common;
 
 public static class EventStoreSetup
 {
