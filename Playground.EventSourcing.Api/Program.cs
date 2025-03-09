@@ -8,12 +8,15 @@ using Weasel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Marten konfigurieren
+// Marten
 builder.Services.AddMarten(options =>
 {
-    options.Connection(builder.Configuration.GetConnectionString("DefaultConnection"));
-    options.AutoCreateSchemaObjects = AutoCreate.All;
-
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    options.Connection(connectionString!);
+    options.AutoCreateSchemaObjects = AutoCreate.CreateOrUpdate;
+    
+    options.UseSystemTextJsonForSerialization();
+    
     var eventTypes = typeof(IDomainEvent).Assembly.GetTypes()
         .Where(t => typeof(IDomainEvent).IsAssignableFrom(t) && t is { IsClass: true, IsAbstract: false })
         .ToList();
@@ -30,7 +33,7 @@ builder.Services.AddMarten(options =>
 
 builder.Services.AddScoped<ICurrentUser, FakeCurrentUser>();
 
-// Swagger hinzufügen (optional)
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
 
@@ -42,7 +45,7 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
-// Endpunkte
+// Endpoints
 app.MapProducts();
 app.MapProductDetails();
 app.MapProductRevisions();
