@@ -28,6 +28,8 @@ builder.Services.AddMarten(options =>
     options.Projections.Add<ProductRevisionHistoryProjection>(ProjectionLifecycle.Inline);
 });
 
+builder.Services.AddScoped<ICurrentUser, FakeCurrentUser>();
+
 // Swagger hinzufügen (optional)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
