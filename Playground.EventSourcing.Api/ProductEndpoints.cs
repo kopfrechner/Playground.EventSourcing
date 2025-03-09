@@ -30,8 +30,7 @@ public static class ProductEndpoints
     private static async Task<IResult> CreateProduct(IDocumentSession session, ICurrentUser currentUser, [FromBody] CreateProductRequest request)
     {
         var productId = Guid.NewGuid();
-        var product = Product.Create(new ProductAdded(productId, request.Alias, DateTimeOffset.Now, currentUser.FullName));
-        session.Events.AppendAndClearUncommitedEvents(product);
+        session.Events.StartStream<Product>(productId, new ProductAdded(productId, request.Alias, DateTimeOffset.Now, currentUser.FullName));
         await session.SaveChangesAsync();
         return Results.Created($"/{productId}", productId);
     }
