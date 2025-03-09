@@ -3,6 +3,7 @@ using Marten.Events.Projections;
 using Playground.EventSourcing.Aggregates.Common;
 using Playground.EventSourcing.Aggregates.Projections;
 using Playground.EventSourcing.Api;
+using Scalar.AspNetCore;
 using Weasel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +37,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 // Endpunkte
