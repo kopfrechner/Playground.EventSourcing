@@ -33,7 +33,7 @@ public abstract record AggregateBase<T>(Guid Id) where T : AggregateBase<T>
 
 public static class AggregateRootExtensions
 {
-    public static void AppendUncommitedEventsAndClear<T>(this IEventStore eventStore, T aggregate) where T : AggregateBase<T>
+    public static void AppendAndClearUncommitedEvents<T>(this IEventStore eventStore, T aggregate) where T : AggregateBase<T>
     {
         eventStore.Append(aggregate.Id, aggregate.UncommittedEvents);
         aggregate.ClearUncommitedEvents();

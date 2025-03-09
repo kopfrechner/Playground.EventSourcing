@@ -136,7 +136,7 @@ public class ProductTests(PostgresTestContainerFixture postgresFixture) : TestsB
             FakeEvent.CandidateProductRevisionApproved(productId));
 
         // Act
-        session.Events.AppendUncommitedEventsAndClear(product);
+        session.Events.AppendAndClearUncommitedEvents(product);
         await session.SaveChangesAsync();
 
         // Assert

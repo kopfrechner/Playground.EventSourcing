@@ -5,6 +5,8 @@ using Playground.EventSourcing.Aggregates.Projections;
 
 namespace Playground.EventSourcing.Api;
 
+public record CreateProductRequest(string Alias, DateTimeOffset CreatedAt, string CreatedBy);
+
 public static class ProductEndpoints
 {
     public static void MapProducts(this WebApplication app)
@@ -25,12 +27,13 @@ public static class ProductEndpoints
             .WithOpenApi();
     }
 
-    private static async Task<IResult> CreateProduct(IDocumentSession session, [FromBody] ProductAdded added)
+    private static async Task<IResult> CreateProduct(IDocumentSession session, [FromBody] CreateProductRequest request)
     {
-        var product = Product.Create(added);
-        session.Events.StartStream(added.ProductId, added);
+        var productId = Guid.NewGuid();
+        var product = Product.Create(new ProductAdded(productId, request.Alias, request.CreatedAt, request.CreatedBy));
+        session.Events.AppendAndClearUncommitedEvents(product);
         await session.SaveChangesAsync();
-        return Results.Created($"/{added.ProductId}", added.ProductId);
+        return Results.Created($"/{productId}", productId);
     }
 
     private static async Task<IResult> GetAllProducts(IDocumentSession session)
