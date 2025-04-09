@@ -1,7 +1,0 @@
-﻿{
-  Id: Guid_1,
-  Description: fresh_bandwidth.st,
-  InternalDescription: a8382ea4-0d4a-85dc-644b-6d45cd41d835.st,
-  UploadedAt: DateTimeOffset_1,
-  UploadedBy: Fanny Purdy
-}

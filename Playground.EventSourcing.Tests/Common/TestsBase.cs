@@ -15,8 +15,6 @@ public abstract class TestsBase(PostgresTestContainerFixture postgresFixture) : 
         _store = EventStoreSetup.SetupProductStore(connectionString);
         await _store.Advanced.Clean.CompletelyRemoveAllAsync();
         await _store.Storage.ApplyAllConfiguredChangesToDatabaseAsync();
-        
-        Randomizer.Seed = new Random(420);
     }
 
     public async Task DisposeAsync()

@@ -13,6 +13,7 @@ public static class FakeEvent
                     f.Commerce.ProductName(),
                     DateTimeOffset.Now,
                     f.Name.FullName()))
+            .UseSeed(420)
             .Generate();
     }
 
@@ -27,6 +28,7 @@ public static class FakeEvent
                     f.Random.Words(20),
                     DateTimeOffset.Now,
                     f.Name.FullName()))
+            .UseSeed(420)
             .Generate();
     }
     
@@ -40,6 +42,7 @@ public static class FakeEvent
                     f.Random.Words(20),
                     DateTimeOffset.Now,
                     f.Name.FullName()))
+            .UseSeed(420)
             .Generate();
     }
     
@@ -51,6 +54,7 @@ public static class FakeEvent
                     f.Random.Words(20),
                     DateTimeOffset.Now,
                     f.Name.FullName()))
+            .UseSeed(420)
             .Generate();
     }
     
@@ -62,6 +66,7 @@ public static class FakeEvent
                     f.Random.Words(20),
                     DateTimeOffset.Now,
                     f.Name.FullName()))
+            .UseSeed(420)
             .Generate();
     }
     
@@ -73,6 +78,7 @@ public static class FakeEvent
                     f.Random.Words(20),
                     DateTimeOffset.Now,
                     f.Name.FullName()))
+            .UseSeed(420)
             .Generate();
     }
 }
